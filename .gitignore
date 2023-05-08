@@ -1,0 +1,11 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# Settings (includes keys etc.)
+settings.yaml
+
+# Visual Studio settings
+.vscode
+
+.DS_Store

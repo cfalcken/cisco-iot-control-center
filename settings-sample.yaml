@@ -1,0 +1,8 @@
+jpotest:
+    username: <your user name>
+    apikey: <your API key>
+    resturl: https://rws-jpotest.jasper.com/rws/api/v1
+    soapurl: https://api-cj.jasper.com
+    wsdlurl: https://jpotest.jasper.com/ws/schema
+    licensekey: <your license key>
+    secret: <your PUSH API secret (account admins only)>
