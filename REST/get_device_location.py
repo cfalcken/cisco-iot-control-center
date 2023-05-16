@@ -41,7 +41,8 @@ __license__ = "Cisco Sample Code License, Version 1.1"
 #
 parser = argparse.ArgumentParser(os.path.basename(__file__))
 parser.add_argument("site", help="Name of the site as specified in settings.yaml", type=str)
-parser.add_argument("iccid", help="Device ICCID", type=str)
+parser.add_argument("-i", "--iccid", help="Device ICCID", type=str, action='append')
+parser.add_argument("-l", "--list", help="File with ICCIDs", type=str)
 parser.add_argument('-f', '--fields', type=str, default='', help='Fields to print from JSON')
 args = parser.parse_args()
 
@@ -57,27 +58,42 @@ full_file_path = Path(__file__).parent.joinpath('../settings.yaml')
 with open(full_file_path) as settings:
     settings = yaml.load(settings, Loader=yaml.Loader)
 
-print("Getting location for ICCID", args.iccid, file=sys.stderr)
-
-# Send the API request
+# Get the list of ICCIDs
 #
-myResponse = requests.get(
-        settings[args.site]["resturl"] + "/devices/" + args.iccid + "/locationHistory" + fields,
+if args.iccid == None:
+    if args.list == None:
+        print("Provide either one or more ICCIDs with option -i or use -l for a filename with ICCIDs")
+        exit()
+    else:
+        with open(args.list) as iccidfile:
+            iccids = iccidfile.read().splitlines()
+else:
+    iccids = args.iccid
+
+alldetails=[]
+print(f"Processing {len(iccids)} ICCIDs", file=sys.stderr)
+for iccid in iccids:
+
+    print("Getting location for ICCID", iccid, file=sys.stderr)
+
+    # Send the API request
+    #
+    myResponse = requests.get(
+        settings[args.site]["resturl"] + "/devices/" + iccid + "/locationHistory" + fields,
         auth=((settings[args.site]["username"]),settings[args.site]["apikey"]))
                       
-# For successful API call, response code will be 200 (OK)
-#
-if(myResponse.ok):
+    # For successful API call, response code will be 200 (OK)
+    #
+    if(myResponse.ok):
     
-    # Loading the response data into a dict variable
-    jData = json.loads(myResponse.content)
+        # Loading the response data into a dict variable
+        jData = json.loads(myResponse.content)
+        alldetails.append(jData)
 
-    # print to stdout
-    json.dump(jData,sys.stdout, indent=4)
+    else:
+        # If response code is not ok (200), print the resulting http error code with description
+        print("Failure", file=sys.stderr)
+        myResponse.raise_for_status()
 
-else:
-    # If response code is not ok (200), print the resulting http error code with description
-    print("Failure")
-    myResponse.raise_for_status()
-
-print()
+# print to stdout
+json.dump(alldetails,sys.stdout, indent=4)

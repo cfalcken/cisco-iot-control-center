@@ -66,7 +66,7 @@ class PushAPIHandler(http.server.BaseHTTPRequestHandler):
 
             # Below is an example for calling another script that handles this event
             # Modify as needed
-            #subprocess.Popen(f"/home/ubuntu/CC/SOAP/get_usage_details.py {args.site} {iccid}", shell=True)
+            #subprocess.Popen(f"/home/ubuntu/CC/SOAP/get_usage_details.py {args.site} {iccid} 2023-01-01", shell=True)
 
         content_type = self.headers.get('Content-Type')
         if content_type.startswith('application/x-www-form-urlencoded'):

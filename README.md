@@ -12,7 +12,7 @@ Note that for accessing the APIs an API key (REST) and a license key (SOAP) is n
 
 ## Installation
 
-Simply make sure that your system supports the Python interpreter and pip, and install any additional packages required Python packages with this command:
+Simply make sure that your system supports the Python interpreter and pip, and install any additional required Python packages with this command:
 
 ````
 pip install -r requirements.txt

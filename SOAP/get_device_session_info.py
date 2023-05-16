@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 ----------------------------------------------------------------------
-Get device details via SOAP API
+Get device session info via SOAP API
 ----------------------------------------------------------------------
 
 Copyright (c) 2023 Cisco and/or its affiliates.
@@ -29,6 +29,7 @@ import os
 import logging
 import yaml
 import zeep
+import json
 from zeep import Client
 from zeep.wsse.username import UsernameToken
 from errors import SoapError
@@ -46,7 +47,8 @@ logging.getLogger('zeep').setLevel(logging.ERROR)
 #
 parser = argparse.ArgumentParser(os.path.basename(__file__))
 parser.add_argument("site", help="Name of the site as specified in settings.yaml", type=str)
-parser.add_argument("iccid", help="Device ICCID", type=str)
+parser.add_argument("-i", "--iccid", help="Device ICCID", type=str, action='append')
+parser.add_argument("-f", "--iccidfile", help="File with ICCIDs", type=str)
 args = parser.parse_args()
 
 # Get the settings (URL, username, apikey) from external file
@@ -61,6 +63,17 @@ url         = settings[args.site]["wsdlurl"] + '/Terminal.wsdl'
 soap_action = 'http://api.jasperwireless.com/ws/service/terminal/GetSessionInfo'
 messageId   = '123456'
 version     = '1'
+# Get the list of ICCIDs
+#
+if args.iccid == None:
+    if args.iccidfile == None:
+        print("Provide either one or more ICCIDs with option -i or use -f for a filename with ICCIDs")
+        exit()
+    else:
+        with open(args.iccidfile) as iccidfile:
+            iccids = iccidfile.read().splitlines()
+else:
+    iccids = args.iccid
 
 # Create a SOAP client
 #
@@ -72,15 +85,29 @@ client.transport.session.headers['SOAPAction'] = soap_action
 
 # Call the GetTerminalDetails method
 #
-try:
-    result = client.service.GetSessionInfo(
-        messageId=messageId, 
-        version=version, 
-        licenseKey=settings[args.site]["licensekey"],
-        iccid=args.iccid)
+alldevices=[]
 
-    # Print the result
-    print(result.sessionInfo)
+for iccid in iccids:
 
-except zeep.exceptions.Fault as fault:
-    print("Error", fault.message, ":", SoapError(fault.message))
+    try:
+        result = client.service.GetSessionInfo(
+            messageId=messageId, 
+            version=version, 
+            licenseKey=settings[args.site]["licensekey"],
+            iccid=iccid
+        )
+
+        # Print the result
+        if result.sessionInfo != None:
+            for record in result.sessionInfo["session"]:
+                terminal ={}
+                for key in record:
+                    terminal[key] = str(record[key])
+            
+            alldevices.append(terminal)
+
+    except zeep.exceptions.Fault as fault:
+        print("Error", fault.message, ":", SoapError(fault.message))
+
+# print to stdout
+json.dump(alldevices,sys.stdout, indent=4)
