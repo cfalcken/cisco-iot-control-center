@@ -81,6 +81,7 @@ while not lastpage:
         page+=1
         lastpage = jData["lastPage"]
         devices = devices + jData["devices"]
+
     else:
         # If response code is not ok (200), print the resulting http error code with description
         print("Failure")
@@ -100,4 +101,4 @@ while not lastpage:
 
 # Now we have all accounts in the list, and do whatever we want now. Here, just dump the JSON content
 #
-json.dump(jData["devices"],sys.stdout,indent=4)
+json.dump(devices,sys.stdout,indent=4)

@@ -29,6 +29,7 @@ import os
 from pathlib import Path
 import argparse
 import sys
+import time
 
 __author__ = "Christian Falckenberg"
 __email__ = "cfalcken@cisco.com"
@@ -70,6 +71,9 @@ if args.iccid == None:
 else:
     iccids = args.iccid
 
+delay=0
+delayinc=1
+
 alldevices=[]
 print(f"Processing {len(iccids)} ICCIDs", file=sys.stderr)
 for iccid in iccids:
@@ -94,6 +98,18 @@ for iccid in iccids:
         # If response code is not ok (200), print the resulting http error code with description
         print("Failure", file=sys.stderr)
         myResponse.raise_for_status()
+
+    # If API call returns the "limit exceeded" error, increase loop delay
+    #
+    if myResponse.status_code != requests.codes.ok:
+        delay += delayinc
+    else:
+        if delay > delayinc:
+            delay -= delayinc
+        else:
+            delay=0
+ 
+    time.sleep( delay )
 
 # print to stdout
 json.dump(alldevices,sys.stdout, indent=4)
