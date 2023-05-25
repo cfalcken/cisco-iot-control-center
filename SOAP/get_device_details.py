@@ -30,7 +30,7 @@ import logging
 import yaml
 import zeep
 import json
-from zeep import Client
+from zeep import Client, helpers
 from zeep.wsse.username import UsernameToken
 from errors import SoapError
 
@@ -40,6 +40,20 @@ __version__ = "1.0.0"
 __copyright__ = "Copyright (c) 2023 Cisco and/or its affiliates."
 __license__ = "Cisco Sample Code License, Version 1.1"
 
+# Function to convert the object returned by the SOAP call to readable JSON
+# (may be called recursively)
+#
+def convert_zeep_object(obj):
+    items={}
+    for key in obj:
+        if isinstance(zeep.helpers.serialize_object(obj[key]),dict):
+            items[key]=convert_zeep_object(obj[key])
+        else:
+            items[key] = str(obj[key])
+    return items
+
+# Enable logging
+#
 logging.basicConfig(level=logging.INFO)
 logging.getLogger('zeep').setLevel(logging.ERROR)
 
@@ -71,7 +85,7 @@ if args.iccid == None:
         print("Provide either one or more ICCIDs with option -i or use -f for a filename with ICCIDs")
         exit()
     else:
-        with open(args.accountfile) as iccidfile:
+        with open(args.iccidfile) as iccidfile:
             iccids = iccidfile.read().splitlines()
 else:
     iccids = args.iccid
@@ -85,28 +99,30 @@ client = Client(url, wsse=UsernameToken(
 #
 client.transport.session.headers['SOAPAction'] = soap_action
 
-# Call the GetTerminalDetails method
-#
 alldevices=[]
-try:
-    result = client.service.GetTerminalDetails(
-        messageId=messageId,
-        version=version,
-        licenseKey=settings[args.site]["licensekey"],
-        iccids={"iccid": args.iccid}
-        )
+# Use a loop in case a large list of ICCDIs is given
+#
+for i in range(0, len(iccids), 50):
+    iccid_slice = iccids[i:i + 50]
 
-    # Convert the result
-    # 
-    for record in result.terminals["terminal"]:
-        terminal ={}
-        for key in record:
-            terminal[key] = str(record[key])
-            
-    alldevices.append(terminal)
+    # Call the GetTerminalDetails method
+    #
+    try:
+        result = client.service.GetTerminalDetails(
+            messageId=messageId,
+            version=version,
+            licenseKey=settings[args.site]["licensekey"],
+            iccids={"iccid": iccid_slice}
+         )
 
-except zeep.exceptions.Fault as fault:
-    print("Error", fault.message, ":", SoapError(fault.message))
+        # Convert the result
+        # 
+        for record in result.terminals["terminal"]:
+            terminal = convert_zeep_object(record)  
+            alldevices.append(terminal)
+
+    except zeep.exceptions.Fault as fault:
+        print("Error", fault.message, ":", SoapError(fault.message), file=sys.stderr)
 
 # print to stdout
 json.dump(alldevices,sys.stdout, indent=4)
