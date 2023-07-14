@@ -58,15 +58,15 @@ RAT = 36
 
 # define and parse arguments
 #
-parser = argparse.ArgumentParser(description='Analyze CDRs per account from Data Usage Report of Cisco Control Center".')
-parser.add_argument('-t', '--threshold', type=int, default=10, help='Threshold of CDRs per device to print')
+parser = argparse.ArgumentParser(
+    description='Analyze CDRs per account from Data Usage Report of Cisco IoT Control Center".')
 args = parser.parse_args()
 
-# Read the CSV file from STDIN using the given delimiter and parse the
-# first line into the header
+# Read the CSV file from STDIN using the given delimiter
 #
 starttime = time.time()
-print("Started reading CSV from STDIN at " + time.ctime(starttime), file=sys.stderr)
+print("Started reading CSV from STDIN at " +
+      time.ctime(starttime), file=sys.stderr)
 reader = csv.reader(sys.stdin, delimiter="|")
 
 accounts = {}
@@ -118,12 +118,13 @@ for rid, row in enumerate(reader):
         records[7] += int(row[DATAUSAGE])
 
 endtime = time.time()
-print("Finished processing " + str(rid+1) + " lines in " + str(int(endtime - starttime)) + " seconds", file=sys.stderr)
+print("Finished processing " + str(rid+1) + " lines in " +
+      str(int(endtime - starttime)) + " seconds", file=sys.stderr)
 
 # Print the analysis
 #
 print("Preparing result", file=sys.stderr)
-iccid_count = []
+account_report = []
 for account in accounts:
     total_iccids = 0
     total_sessions = 0
@@ -156,19 +157,31 @@ for account in accounts:
             total_volume_partial_usage += records[7]
 
     if total_time_partials > 0:
-        average_time_partial_seconds = int(total_time_partial_duration / total_time_partials)
+        average_time_partial_seconds = int(
+            total_time_partial_duration / total_time_partials)
 
     if total_volume_partials > 0:
-        average_volume_partial_bytes = int(total_volume_partial_usage / total_volume_partials)
+        average_volume_partial_bytes = int(
+            total_volume_partial_usage / total_volume_partials)
 
-    iccid_count.append((
+    # Calculate the estimated CDR charge units for the account, which then would just need
+    # to be multiplied with the CDR price per device
+    # - dividing by 10 instead of 300 considers that the records are counted only for a day,
+    #   but the result is then the estimated value for the month
+    # - using int rounds the number down, so that this counts the extra blocks (if records per
+    #   ICCID are below 10 then the result is 0)
+    #
+    cdrcharge = int(total_records / total_iccids / 10) * total_iccids
+
+    account_report.append((
         account,
         total_iccids,
         total_sessions,
         total_records,
         int(total_records / total_iccids),
-        int(total_records / total_iccids / 10) * total_iccids,
+        cdrcharge,
         total_duration,
+        int(total_duration/total_sessions),
         total_usage,
         total_zero_byte_records,
         total_time_partials,
@@ -177,24 +190,23 @@ for account in accounts:
         average_volume_partial_bytes
     ))
 
-# Filter out everything below the threshold
+# Report only accounts with extra CDR blocks
 #
-iccid_out = []
-for iccid in iccid_count:
-    if iccid[4] > args.threshold:
-        iccid_out.append(iccid)
+accounts_out = []
+for account in account_report:
+    if account[5] > 0:
+        accounts_out.append(account)
 
 # Sort the output based on the CDR blocks
 #
-iccid_out.sort(key=lambda tup: int(tup[5]), reverse=True)
+accounts_out.sort(key=lambda tup: int(tup[5]), reverse=True)
 
 # Print the account list
 #
-print("Account ID, Number of ICCIDs, Number of Sessions, Number of Records, Records per Device, CDR blocks, Total Duration, Total Usage, Zero Byte Records, Time Partials, Volume Partials, Average Time Partial Seconds, Average Volume Partial Bytes")
+print("Account ID, Number of ICCIDs, Number of Sessions, Number of Records, Records per Device, CDR charge units, Total Duration, Average Session Duration, Total Usage, Zero Byte Records, Time Partials, Volume Partials, Average Time Partial Seconds, Average Volume Partial Bytes")
 
-for iccid in iccid_out:
-    print(*iccid, sep=",")
+for account in accounts_out:
+    print(*account, sep=",")
 
 endtime = time.time()
-print("Done after "+ str(int(endtime - starttime)) + " seconds.", file=sys.stderr)
-
+print("Done after " + str(int(endtime - starttime)) + " seconds.", file=sys.stderr)

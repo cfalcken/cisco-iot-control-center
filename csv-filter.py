@@ -44,7 +44,7 @@ parser = argparse.ArgumentParser(description='Filter for CSV files to print only
 parser.add_argument('-c', '--columns', type=str, nargs='+', help='columns to select in output')
 parser.add_argument('-f', '--filters', type=str, nargs='+', help='columns with values to match')
 parser.add_argument('-d', '--delimiter', type=str, default=',', help='delimiter between fields in input')
-parser.add_argument('-n', '--noheader', action='store_false', help='do not print a header')
+parser.add_argument('-n', '--noheader', action='store_true', help='do not print a header')
 
 # parse the arguments from the command line
 #
@@ -108,7 +108,7 @@ if args.filters != None:
 # write the selected columns to standard output
 #
 writer = csv.writer(sys.stdout)
-if args.noheader == True:
+if args.noheader == False:
     writer.writerow([header[i-1] for i in columnlist])
 
 # cycle through the rest of the input and print only selected colums and only when a filter matches, if provided
