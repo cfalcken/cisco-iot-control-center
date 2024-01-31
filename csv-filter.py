@@ -37,6 +37,12 @@ __version__ = "1.0.0"
 __copyright__ = "Copyright (c) 2023 Cisco and/or its affiliates."
 __license__ = "Cisco Sample Code License, Version 1.1"
 
+# function to clean the content of cells
+#
+def clean(s):
+    # Remove "=" and quotes
+    return s.replace('=','').replace('"','')
+
 # define and parse arguments
 #
 parser = argparse.ArgumentParser(description='Filter for CSV files to print only selected columns and when they match a pattern".')
@@ -55,6 +61,9 @@ args = parser.parse_args()
 #reader = csv.reader(sys.stdin,delimiter=args.delimiter, quoting=csv.QUOTE_NONE)
 reader = csv.reader(sys.stdin,delimiter=args.delimiter)
 header = next(reader)
+
+for i in range(0,len(header)):
+    header[i]=clean(header[i])
 
 # If no argument was given, print the list of possible columns and exit
 #
@@ -119,12 +128,12 @@ try:
         selected_row=[]
         filtered = False
         for f in filterlist:
-            if not re.match(filterlist[f], row[int(f)-1]):
+            if not re.match(filterlist[f], clean(row[int(f)-1])):
                 filtered = True
 
         if not filtered:
             for c in columnlist:
-                selected_row.append(row[c-1])
+                selected_row.append(clean(row[c-1]))
             writer.writerow(selected_row)
 
 except IOError as e:

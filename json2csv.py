@@ -61,6 +61,9 @@ def extract_json_keys(json_data):
 with open(sys.stdin.fileno()) as json_file:
     json_data = json.load(json_file)
 
+if "data" in json_data:
+    json_data = json_data["data"]
+
 # Flatten the JSON object into a list of dictionaries
 #
 flat_data = []
