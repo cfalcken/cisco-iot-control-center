@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 ----------------------------------------------------------------------
@@ -22,30 +22,31 @@ or implied.
 
 """
 
-import requests 
-import json 
-import yaml
-import os
-from pathlib import Path
-import argparse
-import sys
-import time
-
 __author__ = "Christian Falckenberg"
 __email__ = "cfalcken@cisco.com"
 __version__ = "1.0.0"
 __copyright__ = "Copyright (c) 2023 Cisco and/or its affiliates."
 __license__ = "Cisco Sample Code License, Version 1.1"
 
-# Parse the command line to get the site name and ICCID
-# Optionally, specify fields to print only a partial response
+import json
+import os
+import argparse
+import sys
+
+# Import functions from parent directory
+#
+currdir = os.path.dirname(os.path.realpath(__file__))                       
+sys.path.append(os.path.join(currdir, os.pardir))
+import functions
+
+# Parse the command line
 #
 parser = argparse.ArgumentParser(os.path.basename(__file__))
 parser.add_argument("site", help="Name of the site as specified in settings.yaml", type=str)
 parser.add_argument("-i", "--iccid", help="Device ICCID", type=str, action='append')
 parser.add_argument("-l", "--list", help="File with ICCIDs", type=str)
-parser.add_argument('-f', '--fields', type=str, default='', help='Attributes to print from JSON')
-
+parser.add_argument("-f", "--fields", type=str, default='', help='Fields to print from JSON')
+parser.add_argument("-d", "--debug", help="Enable debug output", action='store_true' )
 args = parser.parse_args()
 
 # Build the fields selector in case it was provided
@@ -53,12 +54,6 @@ args = parser.parse_args()
 fields =''
 if args.fields != '':
     fields = '?fields=' + args.fields
-
-# Get the settings (URL, username, apikey) from external file
-#
-full_file_path = Path(__file__).parent.joinpath('../settings.yaml')
-with open(full_file_path) as settings:
-    settings = yaml.load(settings, Loader=yaml.Loader)
 
 # Get the list of ICCIDs
 #
@@ -72,45 +67,25 @@ if args.iccid == None:
 else:
     iccids = args.iccid
 
-delay=0
-delayinc=1
+# Load settings for the site
+#
+settings = functions.load_site_settings(args.site)
 
-alldevices=[]
+alldetails=[]
 print(f"Processing {len(iccids)} ICCIDs", file=sys.stderr)
 for iccid in iccids:
 
-    print("Getting details for ICCID", iccid, file=sys.stderr)
+    print(f"Getting details for ICCID {iccid}", file=sys.stderr)
 
-    # Send the API request
-    #
-    myResponse = requests.get(
-        settings[args.site]["resturl"] + "/devices/" + iccid + fields,
-        auth=((settings[args.site]["username"]),settings[args.site]["apikey"]))
-                      
-    # For successful API call, response code will be 200 (OK)
-    if(myResponse.ok):
-    
-        # Loading the response data into a dict variable
-        jData = json.loads(myResponse.content)
-        alldevices.append(jData)
+    jData = json.loads(functions.get_data(
+        settings["resturl"] + "/devices/" + iccid + fields,
+        settings["username"], 
+        settings["apikey"], 
+        {}, 
+        args.debug))
 
-    else:
-        # If response code is not ok (200), print the resulting http error code with description
-        print("Failure", file=sys.stderr)
-        myResponse.raise_for_status()
+    alldetails.append(jData)
 
-    # If API call returns the "limit exceeded" error, increase loop delay
-    #
-    if myResponse.status_code != requests.codes.ok:
-        delay += delayinc
-    else:
-        if delay > delayinc:
-            delay -= delayinc
-        else:
-            delay=0
- 
-    time.sleep( delay )
-
-# print to stdout
-json.dump(alldevices,sys.stdout, indent=4)
-
+# Dump the result
+#
+print(json.dumps(alldetails, indent=4))

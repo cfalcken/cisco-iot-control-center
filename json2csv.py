@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 ----------------------------------------------------------------------
@@ -58,8 +58,11 @@ def extract_json_keys(json_data):
 
 # Open JSON from STDIN
 #
-with open(sys.stdin.fileno()) as json_file:
-    json_data = json.load(json_file)
+try:
+    with open(sys.stdin.fileno()) as json_file:
+        json_data = json.load(json_file)
+except Exception as error:
+    sys.exit(f"ERROR: Could not process JSON input: {error}")
 
 if "data" in json_data:
     json_data = json_data["data"]

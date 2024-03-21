@@ -31,6 +31,7 @@ import sys
 import csv
 import argparse
 import time
+import math
 
 __author__ = "Christian Falckenberg"
 __email__ = "cfalcken@cisco.com"
@@ -171,7 +172,7 @@ for account in accounts:
     # - using int rounds the number down, so that this counts the extra blocks (if records per
     #   ICCID are below 10 then the result is 0)
     #
-    cdrcharge = int(total_records / total_iccids / 10) * total_iccids
+    cdrcharge = math.ceil((total_records * 30 - total_iccids * 300 ) / 300)
 
     account_report.append((
         account,

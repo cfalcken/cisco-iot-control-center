@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 ----------------------------------------------------------------------
@@ -22,48 +22,42 @@ or implied.
 
 """
 
-import requests 
-import json 
-import yaml
-import sys
-import os
-from pathlib import Path
-import argparse
-
 __author__ = "Christian Falckenberg"
 __email__ = "cfalcken@cisco.com"
 __version__ = "1.0.0"
 __copyright__ = "Copyright (c) 2023 Cisco and/or its affiliates."
 __license__ = "Cisco Sample Code License, Version 1.1"
 
-# Parse the command line to get the site name
+import json
+import os
+import argparse
+import sys
+
+# Import functions from parent directory
+#
+currdir = os.path.dirname(os.path.realpath(__file__))                       
+sys.path.append(os.path.join(currdir, os.pardir))
+import functions
+
+# Parse the command line
 #
 parser = argparse.ArgumentParser(os.path.basename(__file__))
 parser.add_argument("site", help="Name of the site as specified in settings.yaml", type=str)
 parser.add_argument("string", help="String to send for echo", type=str)
+parser.add_argument("-d", "--debug", help="Enable debug output", action='store_true' )
 args = parser.parse_args()
 
-# Get the settings (URL, username, apikey) from external file
+# Load settings for the site
 #
-full_file_path = Path(__file__).parent.joinpath('../settings.yaml')
-with open(full_file_path) as settings:
-    settings = yaml.load(settings, Loader=yaml.Loader)
+settings = functions.load_site_settings(args.site)
 
 print("Sending echo request for ", args.string, file=sys.stderr)
 
-myResponse = requests.get(
-        settings[args.site]["resturl"] + "/echo/" + args.string,
-        auth=((settings[args.site]["username"]),settings[args.site]["apikey"]))
-                      
-# For successful API call, response code will be 200 (OK)
-#
-if(myResponse.ok):
-    # Loading the response data into a dict variable
-    jData = json.loads(myResponse.content)
+jData = json.loads(functions.get_data(
+    settings["resturl"] + "/echo/" + args.string,
+    settings["username"], 
+    settings["apikey"], 
+    {}, 
+    args.debug))
 
-else:
-    # If response code is not ok (200), print the resulting http error code with description
-    print("Failure")
-    myResponse.raise_for_status()
-    
 print (jData["context"])

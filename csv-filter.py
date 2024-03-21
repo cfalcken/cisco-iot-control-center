@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 ----------------------------------------------------------------------
@@ -49,6 +49,8 @@ parser = argparse.ArgumentParser(description='Filter for CSV files to print only
 
 parser.add_argument('-c', '--columns', type=str, nargs='+', help='columns to select in output')
 parser.add_argument('-f', '--filters', type=str, nargs='+', help='columns with values to match')
+parser.add_argument('-a', '--append', type=str, nargs='+', help='column name=value to append')
+parser.add_argument('-m', '--match', type=str, default='and', help='use "and" or "or" for matching multiple filters')
 parser.add_argument('-d', '--delimiter', type=str, default=',', help='delimiter between fields in input')
 parser.add_argument('-n', '--noheader', action='store_true', help='do not print a header')
 
@@ -59,8 +61,11 @@ args = parser.parse_args()
 # read in the input from standard input and extract the header row
 #
 #reader = csv.reader(sys.stdin,delimiter=args.delimiter, quoting=csv.QUOTE_NONE)
-reader = csv.reader(sys.stdin,delimiter=args.delimiter)
-header = next(reader)
+try:
+    reader = csv.reader(sys.stdin,delimiter=args.delimiter)
+    header = next(reader)
+except Exception as error:
+    sys.exit(f"ERROR: Could not process CSV input: {error}")
 
 for i in range(0,len(header)):
     header[i]=clean(header[i])
@@ -112,7 +117,21 @@ if args.filters != None:
     for filter in args.filters:
         f = filter.split("=")
         if f[0] != filter:
-            filterlist[f[0]] = f[1]
+            if f[0].isdigit():
+                filterlist[f[0]] = f[1]
+            else:
+                filterlist[header.index(f[0])+1] = f[1]
+
+# Parse the list of column to append
+#
+appendlist=[]
+if args.append != None:
+    for newcolumn in args.append:
+        f = newcolumn.split("=")
+        if f[0] != newcolumn:
+            header.append(f[0])
+            appendlist.append(f[1])
+            columnlist.append(len(header))
 
 # write the selected columns to standard output
 #
@@ -126,10 +145,19 @@ try:
     data = []
     for row in reader:
         selected_row=[]
-        filtered = False
-        for f in filterlist:
-            if not re.match(filterlist[f], clean(row[int(f)-1])):
-                filtered = True
+        for a in appendlist:
+            row.append(a)
+
+        if args.match == "or":
+            filtered = True
+            for f in filterlist:
+                if re.match(filterlist[f], clean(row[int(f)-1])):
+                    filtered = False
+        else:
+            filtered = False
+            for f in filterlist:
+                if not re.match(filterlist[f], clean(row[int(f)-1])):
+                    filtered = True
 
         if not filtered:
             for c in columnlist:

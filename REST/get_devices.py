@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 ----------------------------------------------------------------------
@@ -22,20 +22,22 @@ or implied.
 
 """
 
-import requests 
-import json 
-import yaml
-import os
-from pathlib import Path
-import argparse
-import sys
-import time
-
 __author__ = "Christian Falckenberg"
 __email__ = "cfalcken@cisco.com"
 __version__ = "1.0.0"
 __copyright__ = "Copyright (c) 2023 Cisco and/or its affiliates."
 __license__ = "Cisco Sample Code License, Version 1.1"
+
+import json
+import os
+import argparse
+import sys
+
+# Import functions from parent directory
+#
+currdir = os.path.dirname(os.path.realpath(__file__))                       
+sys.path.append(os.path.join(currdir, os.pardir))
+import functions
 
 # Parse the command line to get the site name
 # Optionally, specify an account ID and a modification date
@@ -44,16 +46,12 @@ parser = argparse.ArgumentParser(os.path.basename(__file__))
 parser.add_argument("site", help="Name of the site as specified in settings.yaml", type=str)
 parser.add_argument("-a", "--account", default='', help="ID of the account", type=str)
 parser.add_argument("-m", "--modified", default='2000-01-01T00:00:00+00:00', help="Modified since, e.g. 2000-01-01T00:00:00+00:00", type=str)
+parser.add_argument("-d", "--debug", help="Enable debug output", action='store_true' )
 args = parser.parse_args()
 
-# Get the settings (URL, username, apikey) from external file
+# Load settings for the site
 #
-full_file_path = Path(__file__).parent.joinpath('../settings.yaml')
-with open(full_file_path) as settings:
-    settings = yaml.load(settings, Loader=yaml.Loader)
-
-delay=0
-delayinc=1
+settings = functions.load_site_settings(args.site)
 
 devices=[]
 page = 1
@@ -61,44 +59,25 @@ lastpage = False
 
 while not lastpage:
 
-    print(f"Requesting page {page} with delay {delay}", file=sys.stderr)
-    myResponse = requests.get(
-        settings[args.site]["resturl"] + "/devices",
-        auth=((settings[args.site]["username"]),settings[args.site]["apikey"]),
-        params={
-            "accountId": args.account,
-            "pageNumber": page,
-            "modifiedSince": args.modified
-            })
-                             
-    # For successful API call, response code will be 200 (OK)
-    if(myResponse.ok):
-    
-        # Loading the response data into a dict variable
-        # json.loads takes in only binary or string variables so using content to fetch binary content
-        # Loads (Load String) takes a Json file and converts into python data structure (dict or list, depending on JSON)
-        jData = json.loads(myResponse.content)
-        page+=1
-        lastpage = jData["lastPage"]
-        devices = devices + jData["devices"]
+    print(f"Requesting page {page}", file=sys.stderr)
 
-    else:
-        # If response code is not ok (200), print the resulting http error code with description
-        print("Failure")
-        myResponse.raise_for_status()
-    
-        # If API call returns the "limit exceeded" error, increase loop delay
-        #
-        if myResponse.status_code != requests.codes.ok:
-            delay += delayinc
-        else:
-            if delay > delayinc:
-                delay -= delayinc
-            else:
-                delay=0
- 
-    time.sleep( delay )
+    params={
+        "accountId": args.account,
+        "pageNumber": page,
+        "modifiedSince": args.modified
+    }
 
-# Now we have all accounts in the list, and do whatever we want now. Here, just dump the JSON content
+    jData = json.loads(functions.get_data(
+        settings["resturl"] + "/devices",
+        settings["username"], 
+        settings["apikey"], 
+        params, 
+        args.debug))
+    devices += jData["devices"]
+
+    page+=1
+    lastpage = jData["lastPage"]
+
+# Dump the result
 #
-json.dump(devices,sys.stdout,indent=4)
+print(json.dumps(devices, indent=4))

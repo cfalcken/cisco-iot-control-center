@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 ----------------------------------------------------------------------
@@ -22,35 +22,27 @@ or implied.
 
 """
 
-import argparse
-from pathlib import Path
-import sys
-import os
-import logging
-import yaml
-import zeep
-import json
-from zeep import Client, helpers
-from zeep.wsse.username import UsernameToken
-from errors import SoapError
-
 __author__ = "Christian Falckenberg"
 __email__ = "cfalcken@cisco.com"
 __version__ = "1.0.0"
 __copyright__ = "Copyright (c) 2023 Cisco and/or its affiliates."
 __license__ = "Cisco Sample Code License, Version 1.1"
 
-# Function to convert the object returned by the SOAP call to readable JSON
-# (may be called recursively)
+import argparse
+import sys
+import os
+import logging
+import zeep
+import json
+from zeep import Client, helpers
+from zeep.wsse.username import UsernameToken
+from errors import SoapError
+
+# Import functions from parent directory
 #
-def convert_zeep_object(obj):
-    items={}
-    for key in obj:
-        if isinstance(zeep.helpers.serialize_object(obj[key]),dict):
-            items[key]=convert_zeep_object(obj[key])
-        else:
-            items[key] = str(obj[key])
-    return items
+currdir = os.path.dirname(os.path.realpath(__file__))                       
+sys.path.append(os.path.join(currdir, os.pardir))
+import functions
 
 # Enable logging
 #
@@ -65,19 +57,6 @@ parser.add_argument("-i", "--iccid", help="Device ICCID", type=str, action='appe
 parser.add_argument("-f", "--iccidfile", help="File with ICCIDs", type=str)
 args = parser.parse_args()
 
-# Get the settings (URL, username, apikey) from external file
-#
-full_file_path = Path(__file__).parent.joinpath('../settings.yaml')
-with open(full_file_path) as settings:
-    settings = yaml.load(settings, Loader=yaml.Loader)
-
-print("Getting details for ICCID", args.iccid, file=sys.stderr)
-
-url = settings[args.site]["wsdlurl"] + '/Terminal.wsdl'
-soap_action = 'http://api.jasperwireless.com/ws/service/terminal/GetTerminalDetails'
-messageId = '123456'
-version = '1'
-
 # Get the list of ICCIDs
 #
 if args.iccid == None:
@@ -90,16 +69,25 @@ if args.iccid == None:
 else:
     iccids = args.iccid
 
+# Load settings for the site
+#
+settings = functions.load_site_settings(args.site)
+
+url = settings["wsdlurl"] + '/Terminal.wsdl'
+soap_action = 'http://api.jasperwireless.com/ws/service/terminal/GetTerminalDetails'
+messageId = '123456'
+version = '1'
+
 # Create a SOAP client
 #
-client = Client(url, wsse=UsernameToken(
-    settings[args.site]["username"], settings[args.site]["password"]))
+client = Client(url, wsse=UsernameToken(settings["username"], settings["password"]))
 
 # Set SOAP action in the header
 #
 client.transport.session.headers['SOAPAction'] = soap_action
 
 alldevices=[]
+
 # Use a loop in case a large list of ICCDIs is given
 #
 for i in range(0, len(iccids), 50):
@@ -111,14 +99,14 @@ for i in range(0, len(iccids), 50):
         result = client.service.GetTerminalDetails(
             messageId=messageId,
             version=version,
-            licenseKey=settings[args.site]["licensekey"],
+            licenseKey=settings["licensekey"],
             iccids={"iccid": iccid_slice}
          )
 
         # Convert the result
         # 
         for record in result.terminals["terminal"]:
-            terminal = convert_zeep_object(record)  
+            terminal = functions.convert_zeep_object(record)  
             alldevices.append(terminal)
 
     except zeep.exceptions.Fault as fault:

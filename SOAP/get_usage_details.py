@@ -1,8 +1,8 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 ----------------------------------------------------------------------
-Get device details via SOAP API
+Get usage details via SOAP API
 ----------------------------------------------------------------------
 
 Copyright (c) 2023 Cisco and/or its affiliates.
@@ -22,12 +22,16 @@ or implied.
 
 """
 
+__author__ = "Christian Falckenberg"
+__email__ = "cfalcken@cisco.com"
+__version__ = "1.0.0"
+__copyright__ = "Copyright (c) 2023 Cisco and/or its affiliates."
+__license__ = "Cisco Sample Code License, Version 1.1"
+
 import argparse
-from pathlib import Path
 import sys
 import os
 import logging
-import yaml
 import zeep
 import json
 import datetime
@@ -35,17 +39,16 @@ from zeep import Client
 from zeep.wsse.username import UsernameToken
 from errors import SoapError
 
-__author__ = "Christian Falckenberg"
-__email__ = "cfalcken@cisco.com"
-__version__ = "1.0.0"
-__copyright__ = "Copyright (c) 2023 Cisco and/or its affiliates."
-__license__ = "Cisco Sample Code License, Version 1.1"
+# Import functions from parent directory
+#
+currdir = os.path.dirname(os.path.realpath(__file__))                       
+sys.path.append(os.path.join(currdir, os.pardir))
+import functions
 
 logging.basicConfig(level=logging.INFO)
 logging.getLogger('zeep').setLevel(logging.ERROR)
 
-# Parse the command line to get the site name, ICCID and the start date
-# of the billing cycle
+# Parse the command line
 #
 parser = argparse.ArgumentParser(os.path.basename(__file__))
 parser.add_argument("site", help="Name of the site as specified in settings.yaml", type=str)
@@ -53,21 +56,18 @@ parser.add_argument("iccid", help="Device ICCID", type=str)
 parser.add_argument("startdate", help="Cycle start date, e.g. 2023-01-01", type=str)
 args = parser.parse_args()
 
-# Get the settings (URL, username, apikey) from external file
+# Load settings for the site
 #
-full_file_path = Path(__file__).parent.joinpath('../settings.yaml')
-with open(full_file_path) as settings:
-    settings = yaml.load(settings, Loader=yaml.Loader)
+settings = functions.load_site_settings(args.site)
 
-url = settings[args.site]["wsdlurl"] + '/Billing.wsdl'
+url = settings["wsdlurl"] + '/Billing.wsdl'
 soap_action = 'http://api.jasperwireless.com/ws/service/billing/GetTerminalUsageDataDetails'
 messageId = '123456'
 version = '1'
 
 # Create a SOAP client
 #
-client = Client(url, wsse=UsernameToken(
-    settings[args.site]["username"], settings[args.site]["password"]))
+client = Client(url, wsse=UsernameToken(settings["username"], settings["password"]))
 
 # Set SOAP action in the header
 #
@@ -91,7 +91,7 @@ while page <= totalPages:
         result = client.service.GetTerminalUsageDataDetails(
             messageId=messageId,
             version=version,
-            licenseKey=settings[args.site]["licensekey"],
+            licenseKey=settings["licensekey"],
             iccid=args.iccid,
             cycleStartDate=args.startdate,
             pageNumber=page)

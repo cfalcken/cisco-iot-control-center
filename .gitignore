@@ -9,3 +9,6 @@ settings.yaml
 .vscode
 
 .DS_Store
+
+# Virtual Environment
+venv

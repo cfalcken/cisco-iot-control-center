@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 ----------------------------------------------------------------------
@@ -22,29 +22,36 @@ or implied.
 
 """
 
-import requests 
-import json 
-import yaml
-import os
-from pathlib import Path
-import argparse
-import sys
-
 __author__ = "Christian Falckenberg"
 __email__ = "cfalcken@cisco.com"
 __version__ = "1.0.0"
 __copyright__ = "Copyright (c) 2023 Cisco and/or its affiliates."
 __license__ = "Cisco Sample Code License, Version 1.1"
 
-# Parse the command line to get the site name and ICCID of the device
-# Optionally, specify the SMS content to be sent as a string or from a file
+import json
+import os
+import argparse
+import sys
+import requests
+
+# Import functions from parent directory
 #
+currdir = os.path.dirname(os.path.realpath(__file__))                       
+sys.path.append(os.path.join(currdir, os.pardir))
+import functions
+
+# Parse the command line
 parser = argparse.ArgumentParser(os.path.basename(__file__))
 parser.add_argument("site", help="Name of the site as specified in settings.yaml", type=str)
 parser.add_argument("iccid", help="Device ICCID", type=str)
 parser.add_argument('-f', '--file', type=str, default='', help='File with content to send')
 parser.add_argument('-t', '--text', type=str, default='Hello World', help='Text to send')
+parser.add_argument("-d", "--debug", help="Enable debug output", action='store_true' )
 args = parser.parse_args()
+
+# Load settings for the site
+#
+settings = functions.load_site_settings(args.site)
 
 # Build the fields selector in case it was provided
 #
@@ -53,12 +60,6 @@ if args.file != '':
         text = file.read()
 else:
     text = args.text
-
-# Get the settings (URL, username, apikey) from external file
-#
-full_file_path = Path(__file__).parent.joinpath('../settings.yaml')
-with open(full_file_path) as settings:
-    settings = yaml.load(settings, Loader=yaml.Loader)
 
 print("Sending SMS to ICCID:", args.iccid, file=sys.stderr)
 print(text, file=sys.stderr)
