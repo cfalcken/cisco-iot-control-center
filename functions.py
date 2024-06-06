@@ -44,7 +44,11 @@ import time
 import logging
 import http.client as http_client
 import json
-import zeep
+
+try:
+    import zeep
+except ImportError:
+    print ('WARNING: Could not import zeep module')
 
 def load_site_settings(site):
 
