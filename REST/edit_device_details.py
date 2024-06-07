@@ -76,8 +76,8 @@ for iccid in iccids:
     # Send the API request
     #
     myResponse = requests.put(
-        settings[args.site]["resturl"] + "/devices/" + iccid,
-        auth=((settings[args.site]["username"]),settings[args.site]["apikey"]),
+        settings["resturl"] + "/devices/" + iccid,
+        auth=((settings["username"]),settings["apikey"]),
         json=json.loads(args.param)
         )
 
