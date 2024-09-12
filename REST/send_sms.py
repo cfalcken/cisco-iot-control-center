@@ -67,8 +67,8 @@ print(text, file=sys.stderr)
 # Send the API request
 #
 myResponse = requests.post(
-        settings[args.site]["resturl"] + "/devices/" + args.iccid + "/smsMessages/",
-        auth=((settings[args.site]["username"]),settings[args.site]["apikey"]),
+        settings["resturl"] + "/devices/" + args.iccid + "/smsMessages/",
+        auth=(settings["username"],settings["apikey"]),
         json={"messageText": text})
 
 # For successful API call, response code will be 200 (OK)
