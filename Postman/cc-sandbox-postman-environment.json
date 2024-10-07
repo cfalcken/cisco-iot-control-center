@@ -1,0 +1,123 @@
+{
+	"id": "4df0cc5b-7874-4467-82ed-149aad875b6f",
+	"name": "CC Sandbox",
+	"values": [
+		{
+			"key": "CC_API_URL",
+			"value": "https://restapi1.jasper.com/rws/api/v1",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "API_KEY",
+			"value": "<add your own API key here>",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "ACCOUNTID",
+			"value": "100198901",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "ICCID",
+			"value": "89302720396911992571",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "RATEPLAN",
+			"value": "JWE%20500KB%20FlxPool",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "USERNAME",
+			"value": "<add your username here>",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "USERID",
+			"value": "<add your userid here>",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "CC_PROV_URL",
+			"value": "https://smp.jasperwireless.com/provision/api/v1",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "PASSWORD",
+			"value": "",
+			"type": "secret",
+			"enabled": true
+		},
+		{
+			"key": "SOAPURL",
+			"value": "https://api.jasper.com",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "LICENSEKEY",
+			"value": "<add your key here>",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "CUSTOMERID",
+			"value": "104693302",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "MESSAGEID",
+			"value": "123456",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "VERSION",
+			"value": "1.1",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "PAGENUMBER",
+			"value": "1",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "ACCOUNTNAME",
+			"value": "JW Enterprise",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "CYCLESTARTDATE",
+			"value": "2023-12-01",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "IMSI",
+			"value": "302720391199407",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "MSISDN",
+			"value": "15879285696",
+			"type": "default",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2024-10-07T15:06:54.471Z",
+	"_postman_exported_using": "Postman/11.10.1"
+}

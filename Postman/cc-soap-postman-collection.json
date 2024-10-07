@@ -1,0 +1,2742 @@
+{
+	"info": {
+		"_postman_id": "715c8077-f5ce-4b75-9803-19018e01fc91",
+		"name": "SOAP API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23429042",
+		"_collection_link": "https://planetary-space-75275.postman.co/workspace/Cisco-IOT-Control-Center~2c66443d-9ead-48f9-992b-0ad2aceeca3e/collection/23429042-715c8077-f5ce-4b75-9803-19018e01fc91?action=share&source=collection_link&creator=23429042"
+	},
+	"item": [
+		{
+			"name": "EchoBinding",
+			"item": [
+				{
+					"name": "Echo",
+					"item": [
+						{
+							"name": "Request 1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPACTION",
+										"value": "\"http://api.jasperwireless.com/ws/service/echo/Echo\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sch=\"http://api.jasperwireless.com/ws/schema\">\n   <soapenv:Header> \n   </soapenv:Header>\n   <soapenv:Body>\n      <sch:EchoRequest>\n         <sch:messageId>{{MESSAGEID}}</sch:messageId>\n         <sch:version>{{VERSION}}</sch:version>\n         <sch:licenseKey>{{LICENSEKEY}}</sch:licenseKey>\n         <sch:value>Hello World</sch:value>\n      </sch:EchoRequest>\n   </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SOAPURL}}/ws/service/echo",
+									"host": [
+										"{{SOAPURL}}"
+									],
+									"path": [
+										"ws",
+										"service",
+										"echo"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "AccountBinding",
+			"item": [
+				{
+					"name": "CreateAccount",
+					"item": [
+						{
+							"name": "Request 1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPACTION",
+										"value": "\"http://api.jasperwireless.com/ws/service/account/CreateAccount\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sch=\"http://api.jasperwireless.com/ws/schema\">\n   <soapenv:Header> \n      <wsse:Security soapenv:mustUnderstand=\"1\" xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"> \n            <wsse:UsernameToken> \n            <wsse:Username>{{USERNAME}}</wsse:Username> \n            <wsse:Password Type=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText\">{{PASSWORD}}</wsse:Password> \n         </wsse:UsernameToken> \n      </wsse:Security> \n   </soapenv:Header>\n   <soapenv:Header/>\n   <soapenv:Body>\n      <sch:CreateAccountRequest>\n         <sch:messageId>{{MESSAGEID}}</sch:messageId>\n         <sch:version>{{VERSION}}</sch:version>\n         <sch:licenseKey>{{LICENSEKEY}}</sch:licenseKey>\n         <sch:serviceProvider>{{SERVICEPROVIDER}}</sch:serviceProvider>\n         <sch:accountName>{{ACCOUNTNAME}}</sch:accountName>\n         <sch:accountType>{{ACCOUNTTYPE}}</sch:accountType>\n         <sch:currencyCode>{{CURRENCYCODE}}</sch:currencyCode>\n         <sch:taxId>{{TAXID}}</sch:taxId>\n         <!--Optional:-->\n         <sch:salesForceAccountName>{{SALESFORCEACCOUNTNAME}}</sch:salesForceAccountName>\n         <!--Optional:-->\n         <sch:createSalesForceAccount>{{CREATESALESFORCEACCOUNT}}</sch:createSalesForceAccount>\n         <sch:defaultCommunicationPlan>{{DEFAULTCOMMUNICATIONPLAN}}</sch:defaultCommunicationPlan>\n         <sch:defaultRatePlan>{{DEFAULTRATEPLAN}}</sch:defaultRatePlan>\n         <!--Optional:-->\n         <sch:createDefaultRatePlan>{{CREATEDEFAULTRATEPLAN}}</sch:createDefaultRatePlan>\n         <!--Optional:-->\n         <sch:customRatePlanName>{{CUSTOMRATEPLANNAME}}</sch:customRatePlanName>\n         <!--Optional:-->\n         <sch:customRatePlanType>{{CUSTOMRATEPLANTYPE}}</sch:customRatePlanType>\n         <!--Optional:-->\n         <sch:billingCycleStart>{{BILLINGCYCLESTART}}</sch:billingCycleStart>\n         <sch:primaryContact>\n            <!--Optional:-->\n            <sch:firstName>{{FIRSTNAME}}</sch:firstName>\n            <!--Optional:-->\n            <sch:middleName>{{MIDDLENAME}}</sch:middleName>\n            <!--Optional:-->\n            <sch:lastName>{{LASTNAME}}</sch:lastName>\n            <!--Optional:-->\n            <sch:phone>{{PHONE}}</sch:phone>\n            <!--Optional:-->\n            <sch:email>{{EMAIL}}</sch:email>\n            <!--Optional:-->\n            <sch:fax>{{FAX}}</sch:fax>\n            <!--Optional:-->\n            <sch:jobTitle>{{JOBTITLE}}</sch:jobTitle>\n            <!--Optional:-->\n            <sch:name>{{NAME}}</sch:name>\n         </sch:primaryContact>\n         <sch:billingContact>\n            <!--Optional:-->\n            <sch:firstName>{{FIRSTNAME}}</sch:firstName>\n            <!--Optional:-->\n            <sch:middleName>{{MIDDLENAME}}</sch:middleName>\n            <!--Optional:-->\n            <sch:lastName>{{LASTNAME}}</sch:lastName>\n            <!--Optional:-->\n            <sch:phone>{{PHONE}}</sch:phone>\n            <!--Optional:-->\n            <sch:email>{{EMAIL}}</sch:email>\n            <!--Optional:-->\n            <sch:fax>{{FAX}}</sch:fax>\n            <!--Optional:-->\n            <sch:jobTitle>{{JOBTITLE}}</sch:jobTitle>\n            <!--Optional:-->\n            <sch:name>{{NAME}}</sch:name>\n         </sch:billingContact>\n         <sch:billingAddress>\n            <!--Optional:-->\n            <sch:address1>{{ADDRESS1}}</sch:address1>\n            <!--Optional:-->\n            <sch:address2>{{ADDRESS2}}</sch:address2>\n            <!--Optional:-->\n            <sch:city>{{CITY}}</sch:city>\n            <!--Optional:-->\n            <sch:region>{{REGION}}</sch:region>\n            <!--Optional:-->\n            <sch:countryCode>{{COUNTRYCODE}}</sch:countryCode>\n            <!--Optional:-->\n            <sch:postalCode>{{POSTALCODE}}</sch:postalCode>\n         </sch:billingAddress>\n         <sch:shippingAddress>\n            <!--Optional:-->\n            <sch:address1>{{ADDRESS1}}</sch:address1>\n            <!--Optional:-->\n            <sch:address2>{{ADDRESS2}}</sch:address2>\n            <!--Optional:-->\n            <sch:city>{{CITY}}</sch:city>\n            <!--Optional:-->\n            <sch:region>{{REGION}}</sch:region>\n            <!--Optional:-->\n            <sch:countryCode>{{COUNTRYCODE}}</sch:countryCode>\n            <!--Optional:-->\n            <sch:postalCode>{{POSTALCODE}}</sch:postalCode>\n         </sch:shippingAddress>\n         <sch:timezone>{{TIMEZONE}}</sch:timezone>\n         <sch:preferredLanguage>{{PREFERREDLANGUAGE}}</sch:preferredLanguage>\n         <!--Optional:-->\n         <sch:notes>{{NOTES}}</sch:notes>\n         <!--Optional:-->\n         <sch:supportEmail>{{SUPPORTEMAIL}}</sch:supportEmail>\n         <!--Optional:-->\n         <sch:supportPhone>{{SUPPORTPHONE}}</sch:supportPhone>\n         <!--Optional:-->\n         <sch:devKitType>{{DEVKITTYPE}}</sch:devKitType>\n         <!--Optional:-->\n         <sch:showJasperSupport>{{SHOWJASPERSUPPORT}}</sch:showJasperSupport>\n         <!--Optional:-->\n         <sch:showSpSupport>{{SHOWSPSUPPORT}}</sch:showSpSupport>\n         <!--Optional:-->\n         <sch:showAcctSupport>{{SHOWACCTSUPPORT}}</sch:showAcctSupport>\n         <!--Optional:-->\n         <sch:regionId>{{REGIONID}}</sch:regionId>\n         <!--Optional:-->\n         <sch:accountSegment>{{ACCOUNTSEGMENT}}</sch:accountSegment>\n         <!--Optional:-->\n         <sch:ssoType>{{SSOTYPE}}</sch:ssoType>\n      </sch:CreateAccountRequest>\n   </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SOAPURL}}/ws/service/account",
+									"host": [
+										"{{SOAPURL}}"
+									],
+									"path": [
+										"ws",
+										"service",
+										"account"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "EditAccount",
+					"item": [
+						{
+							"name": "Request 1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPACTION",
+										"value": "\"http://api.jasperwireless.com/ws/service/account/EditAccount\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sch=\"http://api.jasperwireless.com/ws/schema\">\n   <soapenv:Header> \n      <wsse:Security soapenv:mustUnderstand=\"1\" xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"> \n            <wsse:UsernameToken> \n            <wsse:Username>{{USERNAME}}</wsse:Username> \n            <wsse:Password Type=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText\">{{PASSWORD}}</wsse:Password> \n         </wsse:UsernameToken> \n      </wsse:Security> \n   </soapenv:Header>\n   <soapenv:Header/>\n   <soapenv:Body>\n      <sch:EditAccountRequest>\n         <sch:messageId>{{MESSAGEID}}</sch:messageId>\n         <sch:version>{{VERSION}}</sch:version>\n         <sch:licenseKey>{{LICENSEKEY}}</sch:licenseKey>\n         <!--1 or more repetitions:-->\n         <sch:account>\n            <sch:accountId>{{ACCOUNTID}}</sch:accountId>\n            <!--Optional:-->\n            <sch:accountName>{{ACCOUNTNAME}}</sch:accountName>\n            <!--Optional:-->\n            <sch:billable>{{BILLABLE}}</sch:billable>\n            <!--Optional:-->\n            <sch:status>{{STATUS}}</sch:status>\n            <!--Optional:-->\n            <sch:operatorAccountId>{{OPERATORACCOUNTID}}</sch:operatorAccountId>\n            <!--Optional:-->\n            <sch:primaryContact>\n               <!--Optional:-->\n               <sch:firstName>{{FIRSTNAME}}</sch:firstName>\n               <!--Optional:-->\n               <sch:middleName>{{MIDDLENAME}}</sch:middleName>\n               <!--Optional:-->\n               <sch:lastName>{{LASTNAME}}</sch:lastName>\n               <!--Optional:-->\n               <sch:phone>{{PHONE}}</sch:phone>\n               <!--Optional:-->\n               <sch:email>{{EMAIL}}</sch:email>\n               <!--Optional:-->\n               <sch:fax>{{FAX}}</sch:fax>\n               <!--Optional:-->\n               <sch:jobTitle>{{JOBTITLE}}</sch:jobTitle>\n               <!--Optional:-->\n               <sch:name>{{NAME}}</sch:name>\n            </sch:primaryContact>\n            <!--Optional:-->\n            <sch:shippingAddress>\n               <!--Optional:-->\n               <sch:address1>{{ADDRESS1}}</sch:address1>\n               <!--Optional:-->\n               <sch:address2>{{ADDRESS2}}</sch:address2>\n               <!--Optional:-->\n               <sch:city>{{CITY}}</sch:city>\n               <!--Optional:-->\n               <sch:region>{{REGION}}</sch:region>\n               <!--Optional:-->\n               <sch:countryCode>{{COUNTRYCODE}}</sch:countryCode>\n               <!--Optional:-->\n               <sch:postalCode>{{POSTALCODE}}</sch:postalCode>\n            </sch:shippingAddress>\n            <!--Optional:-->\n            <sch:billing>\n               <!--Optional:-->\n               <sch:address>\n                  <!--Optional:-->\n                  <sch:address1>{{ADDRESS1}}</sch:address1>\n                  <!--Optional:-->\n                  <sch:address2>{{ADDRESS2}}</sch:address2>\n                  <!--Optional:-->\n                  <sch:city>{{CITY}}</sch:city>\n                  <!--Optional:-->\n                  <sch:region>{{REGION}}</sch:region>\n                  <!--Optional:-->\n                  <sch:countryCode>{{COUNTRYCODE}}</sch:countryCode>\n                  <!--Optional:-->\n                  <sch:postalCode>{{POSTALCODE}}</sch:postalCode>\n               </sch:address>\n               <!--Optional:-->\n               <sch:contact>\n                  <!--Optional:-->\n                  <sch:firstName>{{FIRSTNAME}}</sch:firstName>\n                  <!--Optional:-->\n                  <sch:middleName>{{MIDDLENAME}}</sch:middleName>\n                  <!--Optional:-->\n                  <sch:lastName>{{LASTNAME}}</sch:lastName>\n                  <!--Optional:-->\n                  <sch:phone>{{PHONE}}</sch:phone>\n                  <!--Optional:-->\n                  <sch:email>{{EMAIL}}</sch:email>\n                  <!--Optional:-->\n                  <sch:fax>{{FAX}}</sch:fax>\n                  <!--Optional:-->\n                  <sch:jobTitle>{{JOBTITLE}}</sch:jobTitle>\n                  <!--Optional:-->\n                  <sch:name>{{NAME}}</sch:name>\n               </sch:contact>\n               <!--Optional:-->\n               <sch:taxId>{{TAXID}}</sch:taxId>\n               <!--Optional:-->\n               <sch:currencyCode>{{CURRENCYCODE}}</sch:currencyCode>\n               <!--Optional:-->\n               <sch:newBillingCycleStart>{{NEWBILLINGCYCLESTART}}</sch:newBillingCycleStart>\n            </sch:billing>\n            <!--Optional:-->\n            <sch:support>\n               <!--Optional:-->\n               <sch:showAccountSupport>{{SHOWACCOUNTSUPPORT}}</sch:showAccountSupport>\n               <!--Optional:-->\n               <sch:showJasperSupport>{{SHOWJASPERSUPPORT}}</sch:showJasperSupport>\n               <!--Optional:-->\n               <sch:showSpSupport>{{SHOWSPSUPPORT}}</sch:showSpSupport>\n               <!--Optional:-->\n               <sch:email>{{EMAIL}}</sch:email>\n               <!--Optional:-->\n               <sch:phone>{{PHONE}}</sch:phone>\n            </sch:support>\n            <!--Optional:-->\n            <sch:customFields>\n               <!--Optional:-->\n               <sch:fieldValue1>{{FIELDVALUE1}}</sch:fieldValue1>\n               <!--Optional:-->\n               <sch:fieldValue2>{{FIELDVALUE2}}</sch:fieldValue2>\n               <!--Optional:-->\n               <sch:fieldValue3>{{FIELDVALUE3}}</sch:fieldValue3>\n               <!--Optional:-->\n               <sch:fieldValue4>{{FIELDVALUE4}}</sch:fieldValue4>\n               <!--Optional:-->\n               <sch:fieldValue5>{{FIELDVALUE5}}</sch:fieldValue5>\n               <!--Optional:-->\n               <sch:fieldValue6>{{FIELDVALUE6}}</sch:fieldValue6>\n               <!--Optional:-->\n               <sch:fieldValue7>{{FIELDVALUE7}}</sch:fieldValue7>\n               <!--Optional:-->\n               <sch:fieldValue8>{{FIELDVALUE8}}</sch:fieldValue8>\n               <!--Optional:-->\n               <sch:fieldValue9>{{FIELDVALUE9}}</sch:fieldValue9>\n               <!--Optional:-->\n               <sch:fieldValue10>{{FIELDVALUE10}}</sch:fieldValue10>\n            </sch:customFields>\n            <!--Optional:-->\n            <sch:locationServiceType>{{LOCATIONSERVICETYPE}}</sch:locationServiceType>\n            <!--Optional:-->\n            <sch:locationServiceMim>{{LOCATIONSERVICEMIM}}</sch:locationServiceMim>\n         </sch:account>\n      </sch:EditAccountRequest>\n   </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SOAPURL}}/ws/service/account",
+									"host": [
+										"{{SOAPURL}}"
+									],
+									"path": [
+										"ws",
+										"service",
+										"account"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "GetAccountDetails",
+					"item": [
+						{
+							"name": "Request 1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPACTION",
+										"value": "\"http://api.jasperwireless.com/ws/service/account/GetAccountDetails\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sch=\"http://api.jasperwireless.com/ws/schema\">\n   <soapenv:Header> \n      <wsse:Security soapenv:mustUnderstand=\"1\" xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"> \n            <wsse:UsernameToken> \n            <wsse:Username>{{USERNAME}}</wsse:Username> \n            <wsse:Password Type=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText\">{{PASSWORD}}</wsse:Password> \n         </wsse:UsernameToken> \n      </wsse:Security> \n   </soapenv:Header>\n   <soapenv:Body>\n      <sch:GetAccountDetailsRequest>\n         <sch:messageId>{{MESSAGEID}}</sch:messageId>\n         <sch:version>{{VERSION}}</sch:version>\n         <sch:licenseKey>{{LICENSEKEY}}</sch:licenseKey>\n         <sch:accountids>\n            <!--1 or more repetitions:-->\n            <sch:accountid>{{ACCOUNTID}}</sch:accountid>\n         </sch:accountids>\n      </sch:GetAccountDetailsRequest>\n   </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SOAPURL}}/ws/service/account",
+									"host": [
+										"{{SOAPURL}}"
+									],
+									"path": [
+										"ws",
+										"service",
+										"account"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "GetAccountDetailsTelkomselLBS",
+					"item": [
+						{
+							"name": "Request 1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPACTION",
+										"value": "\"http://api.jasperwireless.com/ws/service/account/GetAccountDetailsTelkomselLBS\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sch=\"http://api.jasperwireless.com/ws/schema\">\n   <soapenv:Header> \n      <wsse:Security soapenv:mustUnderstand=\"1\" xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"> \n            <wsse:UsernameToken> \n            <wsse:Username>{{USERNAME}}</wsse:Username> \n            <wsse:Password Type=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText\">{{PASSWORD}}</wsse:Password> \n         </wsse:UsernameToken> \n      </wsse:Security> \n   </soapenv:Header>\n   <soapenv:Body>\n      <sch:GetAccountDetailsTelkomselLBSRequest>\n         <sch:messageId>{{MESSAGEID}}</sch:messageId>\n         <sch:version>{{VERSION}}</sch:version>\n         <sch:licenseKey>{{LICENSEKEY}}</sch:licenseKey>\n         <sch:accountids>\n            <!--1 or more repetitions:-->\n            <sch:accountid>{{ACCOUNTID}}</sch:accountid>\n         </sch:accountids>\n      </sch:GetAccountDetailsTelkomselLBSRequest>\n   </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SOAPURL}}/ws/service/account",
+									"host": [
+										"{{SOAPURL}}"
+									],
+									"path": [
+										"ws",
+										"service",
+										"account"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "GetAccountIdByAcctName",
+					"item": [
+						{
+							"name": "Request 1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPACTION",
+										"value": "\"http://api.jasperwireless.com/ws/service/account/GetAccountIdByAcctName\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sch=\"http://api.jasperwireless.com/ws/schema\">\n   <soapenv:Header> \n      <wsse:Security soapenv:mustUnderstand=\"1\" xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"> \n            <wsse:UsernameToken> \n            <wsse:Username>{{USERNAME}}</wsse:Username> \n            <wsse:Password Type=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText\">{{PASSWORD}}</wsse:Password> \n         </wsse:UsernameToken> \n      </wsse:Security> \n   </soapenv:Header>\n   <soapenv:Body>\n      <sch:GetAccountIdByAcctNameRequest>\n         <sch:messageId>{{MESSAGEID}}</sch:messageId>\n         <sch:version>{{VERSION}}</sch:version>\n         <sch:licenseKey>{{LICENSEKEY}}</sch:licenseKey>\n         <sch:accountName>{{ACCOUNTNAME}}</sch:accountName>\n      </sch:GetAccountIdByAcctNameRequest>\n   </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SOAPURL}}/ws/service/account?ACCOUNTNAME=JW Enterprise",
+									"host": [
+										"{{SOAPURL}}"
+									],
+									"path": [
+										"ws",
+										"service",
+										"account"
+									],
+									"query": [
+										{
+											"key": "ACCOUNTNAME",
+											"value": "JW Enterprise"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "GetAccountIdByOpAcctId",
+					"item": [
+						{
+							"name": "Request 1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPACTION",
+										"value": "\"http://api.jasperwireless.com/ws/service/account/GetAccountIdByOpAcctId\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sch=\"http://api.jasperwireless.com/ws/schema\">\n   <soapenv:Header> \n      <wsse:Security soapenv:mustUnderstand=\"1\" xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"> \n            <wsse:UsernameToken> \n            <wsse:Username>{{USERNAME}}</wsse:Username> \n            <wsse:Password Type=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText\">{{PASSWORD}}</wsse:Password> \n         </wsse:UsernameToken> \n      </wsse:Security> \n   </soapenv:Header>\n   <soapenv:Body>\n      <sch:GetAccountIdByOpAcctIdRequest>\n         <sch:messageId>{{MESSAGEID}}</sch:messageId>\n         <sch:version>{{VERSION}}</sch:version>\n         <sch:licenseKey>{{LICENSEKEY}}</sch:licenseKey>\n         <sch:operatorAccountId>{{OPERATORACCOUNTID}}</sch:operatorAccountId>\n      </sch:GetAccountIdByOpAcctIdRequest>\n   </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SOAPURL}}/ws/service/account",
+									"host": [
+										"{{SOAPURL}}"
+									],
+									"path": [
+										"ws",
+										"service",
+										"account"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "GetAccountPeerStatus",
+					"item": [
+						{
+							"name": "Request 1",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPACTION",
+										"value": "\"http://api.jasperwireless.com/ws/service/account/GetAccountPeerStatus\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sch=\"http://api.jasperwireless.com/ws/schema\">\n   <soapenv:Header> \n      <wsse:Security soapenv:mustUnderstand=\"1\" xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"> \n            <wsse:UsernameToken> \n            <wsse:Username>{{USERNAME}}</wsse:Username> \n            <wsse:Password Type=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText\">{{PASSWORD}}</wsse:Password> \n         </wsse:UsernameToken> \n      </wsse:Security> \n   </soapenv:Header>\n   <soapenv:Body>\n      <sch:GetAccountPeerStatusRequest>\n         <sch:messageId>{{MESSAGEID}}</sch:messageId>\n         <sch:version>{{VERSION}}</sch:version>\n         <sch:licenseKey>{{LICENSEKEY}}</sch:licenseKey>\n         <sch:operator>{{OPERATOR}}</sch:operator>\n         <sch:account>{{ACCOUNT}}</sch:account>\n         <sch:remoteOperator>{{REMOTEOPERATOR}}</sch:remoteOperator>\n         <sch:remoteAccount>{{REMOTEACCOUNT}}</sch:remoteAccount>\n      </sch:GetAccountPeerStatusRequest>\n   </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SOAPURL}}/ws/service/account",
+									"host": [
+										"{{SOAPURL}}"
+									],
+									"path": [
+										"ws",
+										"service",
+										"account"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "GetAccounts",
+					"item": [
+						{
+							"name": "Request 1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPACTION",
+										"value": "\"http://api.jasperwireless.com/ws/service/account/GetAccounts\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sch=\"http://api.jasperwireless.com/ws/schema\">\n   <soapenv:Header> \n      <wsse:Security soapenv:mustUnderstand=\"1\" xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"> \n            <wsse:UsernameToken> \n            <wsse:Username>{{USERNAME}}</wsse:Username> \n            <wsse:Password Type=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText\">{{PASSWORD}}</wsse:Password> \n         </wsse:UsernameToken> \n      </wsse:Security> \n   </soapenv:Header>\n   <soapenv:Body>\n      <sch:GetAccountsRequest>\n         <sch:messageId>{{MESSAGEID}}</sch:messageId>\n         <sch:version>{{VERSION}}</sch:version>\n         <sch:licenseKey>{{LICENSEKEY}}</sch:licenseKey>\n         <!--Optional:-->\n         <sch:pageNumber>{{PAGENUMBER}}</sch:pageNumber>\n      </sch:GetAccountsRequest>\n   </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SOAPURL}}/ws/service/account",
+									"host": [
+										"{{SOAPURL}}"
+									],
+									"path": [
+										"ws",
+										"service",
+										"account"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "SetAccountPeerStatus",
+					"item": [
+						{
+							"name": "Request 1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPACTION",
+										"value": "\"http://api.jasperwireless.com/ws/service/account/SetAccountPeerStatus\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sch=\"http://api.jasperwireless.com/ws/schema\">\n   <soapenv:Header> \n      <wsse:Security soapenv:mustUnderstand=\"1\" xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"> \n            <wsse:UsernameToken> \n            <wsse:Username>{{USERNAME}}</wsse:Username> \n            <wsse:Password Type=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText\">{{PASSWORD}}</wsse:Password> \n         </wsse:UsernameToken> \n      </wsse:Security> \n   </soapenv:Header>\n   <soapenv:Body>\n      <sch:SetAccountPeerStatusRequest>\n         <sch:messageId>{{MESSAGEID}}</sch:messageId>\n         <sch:version>{{VERSION}}</sch:version>\n         <sch:licenseKey>{{LICENSEKEY}}</sch:licenseKey>\n         <sch:operator>{{OPERATOR}}</sch:operator>\n         <sch:account>{{ACCOUNT}}</sch:account>\n         <sch:remoteOperator>{{REMOTEOPERATOR}}</sch:remoteOperator>\n         <sch:remoteAccount>{{REMOTEACCOUNT}}</sch:remoteAccount>\n         <sch:status>{{STATUS}}</sch:status>\n         <sch:secretKey>{{SECRETKEY}}</sch:secretKey>\n      </sch:SetAccountPeerStatusRequest>\n   </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SOAPURL}}/ws/service/account",
+									"host": [
+										"{{SOAPURL}}"
+									],
+									"path": [
+										"ws",
+										"service",
+										"account"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "AddRoutableMSISDNBinding",
+			"item": [
+				{
+					"name": "AddRoutableMSISDN",
+					"item": [
+						{
+							"name": "Request 1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPACTION",
+										"value": "\"http://api.jasperwireless.com/ws/service/AddRoutableMSISDN/AddRoutableMSISDN\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sch=\"http://api.jasperwireless.com/ws/schema\">\n   <soapenv:Header> \n      <wsse:Security soapenv:mustUnderstand=\"1\" xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"> \n            <wsse:UsernameToken> \n            <wsse:Username>{{USERNAME}}</wsse:Username> \n            <wsse:Password Type=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText\">{{PASSWORD}}</wsse:Password> \n         </wsse:UsernameToken> \n      </wsse:Security> \n   </soapenv:Header>\n   <soapenv:Body>\n      <sch:AddRoutableMSISDNRequest>\n         <sch:messageId>{{MESSAGEID}}</sch:messageId>\n         <sch:version>{{VERSION}}</sch:version>\n         <sch:licenseKey>{{LICENSEKEY}}</sch:licenseKey>\n         <sch:iccid>{{ICCID}}</sch:iccid>\n         <sch:addressLine1>{{ADDRESSLINE1}}</sch:addressLine1>\n         <sch:addressLine2>{{ADDRESSLINE2}}</sch:addressLine2>\n         <sch:city>{{CITY}}</sch:city>\n         <sch:state>{{STATE}}</sch:state>\n         <!--Optional:-->\n         <sch:zip>{{ZIP}}</sch:zip>\n         <!--Optional:-->\n         <sch:country>{{COUNTRY}}</sch:country>\n      </sch:AddRoutableMSISDNRequest>\n   </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SOAPURL}}/ws/service/AddRoutableMSISDN",
+									"host": [
+										"{{SOAPURL}}"
+									],
+									"path": [
+										"ws",
+										"service",
+										"AddRoutableMSISDN"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "BillingBinding",
+			"item": [
+				{
+					"name": "GetInvoice",
+					"item": [
+						{
+							"name": "Request 1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPACTION",
+										"value": "\"http://api.jasperwireless.com/ws/service/billing/GetInvoice\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sch=\"http://api.jasperwireless.com/ws/schema\">\n   <soapenv:Header> \n      <wsse:Security soapenv:mustUnderstand=\"1\" xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"> \n            <wsse:UsernameToken> \n            <wsse:Username>{{USERNAME}}</wsse:Username> \n            <wsse:Password Type=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText\">{{PASSWORD}}</wsse:Password> \n         </wsse:UsernameToken> \n      </wsse:Security> \n   </soapenv:Header>\n   <soapenv:Body>\n      <sch:GetInvoiceRequest>\n         <sch:messageId>{{MESSAGEID}}</sch:messageId>\n         <sch:version>{{VERSION}}</sch:version>\n         <sch:licenseKey>{{LICENSEKEY}}</sch:licenseKey>\n         <sch:accountId>{{ACCOUNTID}}</sch:accountId>\n         <!--Optional:-->\n         <sch:cycleStartDate>{{CYCLESTARTDATE}}</sch:cycleStartDate>\n      </sch:GetInvoiceRequest>\n   </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SOAPURL}}/ws/service/billing",
+									"host": [
+										"{{SOAPURL}}"
+									],
+									"path": [
+										"ws",
+										"service",
+										"billing"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "GetTerminalUsage",
+					"item": [
+						{
+							"name": "Request 1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPACTION",
+										"value": "\"http://api.jasperwireless.com/ws/service/billing/GetTerminalUsage\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sch=\"http://api.jasperwireless.com/ws/schema\">\n   <soapenv:Header> \n      <wsse:Security soapenv:mustUnderstand=\"1\" xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"> \n            <wsse:UsernameToken> \n            <wsse:Username>{{USERNAME}}</wsse:Username> \n            <wsse:Password Type=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText\">{{PASSWORD}}</wsse:Password> \n         </wsse:UsernameToken> \n      </wsse:Security> \n   </soapenv:Header>\n   <soapenv:Body>\n      <sch:GetTerminalUsageRequest>\n         <sch:messageId>{{MESSAGEID}}</sch:messageId>\n         <sch:version>{{VERSION}}</sch:version>\n         <sch:licenseKey>{{LICENSEKEY}}</sch:licenseKey>\n         <sch:iccid>{{ICCID}}</sch:iccid>\n         <!--Optional:-->\n         <sch:cycleStartDate>{{CYCLESTARTDATE}}</sch:cycleStartDate>\n      </sch:GetTerminalUsageRequest>\n   </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SOAPURL}}/ws/service/billing",
+									"host": [
+										"{{SOAPURL}}"
+									],
+									"path": [
+										"ws",
+										"service",
+										"billing"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "GetTerminalUsageDataDetails",
+					"item": [
+						{
+							"name": "Request 1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPACTION",
+										"value": "\"http://api.jasperwireless.com/ws/service/billing/GetTerminalUsageDataDetails\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sch=\"http://api.jasperwireless.com/ws/schema\">\n   <soapenv:Header> \n      <wsse:Security soapenv:mustUnderstand=\"1\" xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"> \n            <wsse:UsernameToken> \n            <wsse:Username>{{USERNAME}}</wsse:Username> \n            <wsse:Password Type=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText\">{{PASSWORD}}</wsse:Password> \n         </wsse:UsernameToken> \n      </wsse:Security> \n   </soapenv:Header>\n   <soapenv:Body>\n      <sch:GetTerminalUsageDataDetailsRequest>\n         <sch:messageId>{{MESSAGEID}}</sch:messageId>\n         <sch:version>{{VERSION}}</sch:version>\n         <sch:licenseKey>{{LICENSEKEY}}</sch:licenseKey>\n         <sch:iccid>{{ICCID}}</sch:iccid>\n         <sch:cycleStartDate>{{CYCLESTARTDATE}}</sch:cycleStartDate>\n         <!--Optional:-->\n         <sch:pageNumber>{{PAGENUMBER}}</sch:pageNumber>\n      </sch:GetTerminalUsageDataDetailsRequest>\n   </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SOAPURL}}/ws/service/billing",
+									"host": [
+										"{{SOAPURL}}"
+									],
+									"path": [
+										"ws",
+										"service",
+										"billing"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "GetTerminalUsageSmsDetails",
+					"item": [
+						{
+							"name": "Request 1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPACTION",
+										"value": "\"http://api.jasperwireless.com/ws/service/billing/GetTerminalUsageSmsDetails\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sch=\"http://api.jasperwireless.com/ws/schema\">\n   <soapenv:Header> \n      <wsse:Security soapenv:mustUnderstand=\"1\" xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"> \n            <wsse:UsernameToken> \n            <wsse:Username>{{USERNAME}}</wsse:Username> \n            <wsse:Password Type=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText\">{{PASSWORD}}</wsse:Password> \n         </wsse:UsernameToken> \n      </wsse:Security> \n   </soapenv:Header>\n   <soapenv:Body>\n      <sch:GetTerminalUsageSmsDetailsRequest>\n         <sch:messageId>{{MESSAGEID}}</sch:messageId>\n         <sch:version>{{VERSION}}</sch:version>\n         <sch:licenseKey>{{LICENSEKEY}}</sch:licenseKey>\n         <sch:iccid>{{ICCID}}</sch:iccid>\n         <sch:cycleStartDate>{{CYCLESTARTDATE}}</sch:cycleStartDate>\n         <!--Optional:-->\n         <sch:pageNumber>{{PAGENUMBER}}</sch:pageNumber>\n      </sch:GetTerminalUsageSmsDetailsRequest>\n   </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SOAPURL}}/ws/service/billing",
+									"host": [
+										"{{SOAPURL}}"
+									],
+									"path": [
+										"ws",
+										"service",
+										"billing"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "GetTerminalUsageVoiceDetails",
+					"item": [
+						{
+							"name": "Request 1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPACTION",
+										"value": "\"http://api.jasperwireless.com/ws/service/billing/GetTerminalUsageVoiceDetails\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sch=\"http://api.jasperwireless.com/ws/schema\">\n   <soapenv:Header> \n      <wsse:Security soapenv:mustUnderstand=\"1\" xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"> \n            <wsse:UsernameToken> \n            <wsse:Username>{{USERNAME}}</wsse:Username> \n            <wsse:Password Type=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText\">{{PASSWORD}}</wsse:Password> \n         </wsse:UsernameToken> \n      </wsse:Security> \n   </soapenv:Header>\n   <soapenv:Body>\n      <sch:GetTerminalUsageVoiceDetailsRequest>\n         <sch:messageId>{{MESSAGEID}}</sch:messageId>\n         <sch:version>{{VERSION}}</sch:version>\n         <sch:licenseKey>{{LICENSEKEY}}</sch:licenseKey>\n         <sch:iccid>{{ICCID}}</sch:iccid>\n         <sch:cycleStartDate>{{CYCLESTARTDATE}}</sch:cycleStartDate>\n         <!--Optional:-->\n         <sch:pageNumber>{{PAGENUMBER}}</sch:pageNumber>\n      </sch:GetTerminalUsageVoiceDetailsRequest>\n   </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SOAPURL}}/ws/service/billing",
+									"host": [
+										"{{SOAPURL}}"
+									],
+									"path": [
+										"ws",
+										"service",
+										"billing"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "EventPlanBinding",
+			"item": [
+				{
+					"name": "ActivateTerminalEvent",
+					"item": [
+						{
+							"name": "Request 1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPACTION",
+										"value": "\"http://api.jasperwireless.com/ws/service/eventplan/ActivateTerminalEvent\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sch=\"http://api.jasperwireless.com/ws/schema\">\n   <soapenv:Header> \n      <wsse:Security soapenv:mustUnderstand=\"1\" xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"> \n            <wsse:UsernameToken> \n            <wsse:Username>{{USERNAME}}</wsse:Username> \n            <wsse:Password Type=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText\">{{PASSWORD}}</wsse:Password> \n         </wsse:UsernameToken> \n      </wsse:Security> \n   </soapenv:Header>\n   <soapenv:Body>\n      <sch:ActivateTerminalEventRequest>\n         <sch:messageId>{{MESSAGEID}}</sch:messageId>\n         <sch:version>{{VERSION}}</sch:version>\n         <sch:licenseKey>{{LICENSEKEY}}</sch:licenseKey>\n         <sch:iccid>{{ICCID}}</sch:iccid>\n         <sch:eventName>{{EVENTNAME}}</sch:eventName>\n         <!--Optional:-->\n         <sch:effectiveDate>{{EFFECTIVEDATE}}</sch:effectiveDate>\n      </sch:ActivateTerminalEventRequest>\n   </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SOAPURL}}/ws/service/eventplan",
+									"host": [
+										"{{SOAPURL}}"
+									],
+									"path": [
+										"ws",
+										"service",
+										"eventplan"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "DeleteTerminalEvent",
+					"item": [
+						{
+							"name": "Request 1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPACTION",
+										"value": "\"http://api.jasperwireless.com/ws/service/eventplan/DeleteTerminalEvent\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sch=\"http://api.jasperwireless.com/ws/schema\">\n   <soapenv:Header> \n      <wsse:Security soapenv:mustUnderstand=\"1\" xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"> \n            <wsse:UsernameToken> \n            <wsse:Username>{{USERNAME}}</wsse:Username> \n            <wsse:Password Type=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText\">{{PASSWORD}}</wsse:Password> \n         </wsse:UsernameToken> \n      </wsse:Security> \n   </soapenv:Header>\n   <soapenv:Body>\n      <sch:DeleteTerminalEventRequest>\n         <sch:messageId>{{MESSAGEID}}</sch:messageId>\n         <sch:version>{{VERSION}}</sch:version>\n         <sch:licenseKey>{{LICENSEKEY}}</sch:licenseKey>\n         <sch:eventInstanceId>{{EVENTINSTANCEID}}</sch:eventInstanceId>\n      </sch:DeleteTerminalEventRequest>\n   </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SOAPURL}}/ws/service/eventplan",
+									"host": [
+										"{{SOAPURL}}"
+									],
+									"path": [
+										"ws",
+										"service",
+										"eventplan"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "GetAvailableEvents",
+					"item": [
+						{
+							"name": "Request 1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPACTION",
+										"value": "\"http://api.jasperwireless.com/ws/service/eventplan/GetAvailableEvents\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sch=\"http://api.jasperwireless.com/ws/schema\">\n   <soapenv:Header> \n      <wsse:Security soapenv:mustUnderstand=\"1\" xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"> \n            <wsse:UsernameToken> \n            <wsse:Username>{{USERNAME}}</wsse:Username> \n            <wsse:Password Type=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText\">{{PASSWORD}}</wsse:Password> \n         </wsse:UsernameToken> \n      </wsse:Security> \n   </soapenv:Header>\n   <soapenv:Body>\n      <sch:GetAvailableEventsRequest>\n         <sch:messageId>{{MESSAGEID}}</sch:messageId>\n         <sch:version>{{VERSION}}</sch:version>\n         <sch:licenseKey>{{LICENSEKEY}}</sch:licenseKey>\n         <sch:iccid>{{ICCID}}</sch:iccid>\n      </sch:GetAvailableEventsRequest>\n   </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SOAPURL}}/ws/service/eventplan",
+									"host": [
+										"{{SOAPURL}}"
+									],
+									"path": [
+										"ws",
+										"service",
+										"eventplan"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "GetTerminalEvents",
+					"item": [
+						{
+							"name": "Request 1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPACTION",
+										"value": "\"http://api.jasperwireless.com/ws/service/eventplan/GetTerminalEvents\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sch=\"http://api.jasperwireless.com/ws/schema\">\n   <soapenv:Header> \n      <wsse:Security soapenv:mustUnderstand=\"1\" xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"> \n            <wsse:UsernameToken> \n            <wsse:Username>{{USERNAME}}</wsse:Username> \n            <wsse:Password Type=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText\">{{PASSWORD}}</wsse:Password> \n         </wsse:UsernameToken> \n      </wsse:Security> \n   </soapenv:Header>\n   <soapenv:Body>\n      <sch:GetTerminalEventsRequest>\n         <sch:messageId>{{MESSAGEID}}</sch:messageId>\n         <sch:version>{{VERSION}}</sch:version>\n         <sch:licenseKey>{{LICENSEKEY}}</sch:licenseKey>\n         <sch:iccid>{{ICCID}}</sch:iccid>\n         <!--Optional:-->\n         <sch:since>{{SINCE}}</sch:since>\n      </sch:GetTerminalEventsRequest>\n   </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SOAPURL}}/ws/service/eventplan",
+									"host": [
+										"{{SOAPURL}}"
+									],
+									"path": [
+										"ws",
+										"service",
+										"eventplan"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "GlobalSimTransferBinding",
+			"item": [
+				{
+					"name": "CancelGlobalSimTransfer",
+					"item": [
+						{
+							"name": "Request 1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPACTION",
+										"value": "\"http://api.jasperwireless.com/ws/service/globalsimtransfer/CancelGlobalSimTransfer\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sch=\"http://api.jasperwireless.com/ws/schema\">\n   <soapenv:Header> \n      <wsse:Security soapenv:mustUnderstand=\"1\" xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"> \n            <wsse:UsernameToken> \n            <wsse:Username>{{USERNAME}}</wsse:Username> \n            <wsse:Password Type=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText\">{{PASSWORD}}</wsse:Password> \n         </wsse:UsernameToken> \n      </wsse:Security> \n   </soapenv:Header>\n   <soapenv:Body>\n      <sch:CancelGlobalSimTransferRequest>\n         <sch:messageId>{{MESSAGEID}}</sch:messageId>\n         <sch:version>{{VERSION}}</sch:version>\n         <sch:licenseKey>{{LICENSEKEY}}</sch:licenseKey>\n         <sch:primaryIccid>{{PRIMARYICCID}}</sch:primaryIccid>\n      </sch:CancelGlobalSimTransferRequest>\n   </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SOAPURL}}/ws/service/globalsimtransfer",
+									"host": [
+										"{{SOAPURL}}"
+									],
+									"path": [
+										"ws",
+										"service",
+										"globalsimtransfer"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "GetGlobalSimTransferStatus",
+					"item": [
+						{
+							"name": "Request 1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPACTION",
+										"value": "\"http://api.jasperwireless.com/ws/service/globalsimtransfer/GetGlobalSimTransferStatus\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sch=\"http://api.jasperwireless.com/ws/schema\">\n   <soapenv:Header> \n      <wsse:Security soapenv:mustUnderstand=\"1\" xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"> \n            <wsse:UsernameToken> \n            <wsse:Username>{{USERNAME}}</wsse:Username> \n            <wsse:Password Type=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText\">{{PASSWORD}}</wsse:Password> \n         </wsse:UsernameToken> \n      </wsse:Security> \n   </soapenv:Header>\n   <soapenv:Body>\n      <sch:GetGlobalSimTransferStatusRequest>\n         <sch:messageId>{{MESSAGEID}}</sch:messageId>\n         <sch:version>{{VERSION}}</sch:version>\n         <sch:licenseKey>{{LICENSEKEY}}</sch:licenseKey>\n         <sch:primaryIccid>{{PRIMARYICCID}}</sch:primaryIccid>\n      </sch:GetGlobalSimTransferStatusRequest>\n   </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SOAPURL}}/ws/service/globalsimtransfer",
+									"host": [
+										"{{SOAPURL}}"
+									],
+									"path": [
+										"ws",
+										"service",
+										"globalsimtransfer"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "TransferGlobalSim",
+					"item": [
+						{
+							"name": "Request 1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPACTION",
+										"value": "\"http://api.jasperwireless.com/ws/service/globalsimtransfer/TransferGlobalSim\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sch=\"http://api.jasperwireless.com/ws/schema\">\n   <soapenv:Header> \n      <wsse:Security soapenv:mustUnderstand=\"1\" xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"> \n            <wsse:UsernameToken> \n            <wsse:Username>{{USERNAME}}</wsse:Username> \n            <wsse:Password Type=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText\">{{PASSWORD}}</wsse:Password> \n         </wsse:UsernameToken> \n      </wsse:Security> \n   </soapenv:Header>\n   <soapenv:Body>\n      <sch:TransferGlobalSimRequest>\n         <sch:messageId>{{MESSAGEID}}</sch:messageId>\n         <sch:version>{{VERSION}}</sch:version>\n         <sch:licenseKey>{{LICENSEKEY}}</sch:licenseKey>\n         <sch:primaryIccid>{{PRIMARYICCID}}</sch:primaryIccid>\n         <sch:targetPartnerName>{{TARGETPARTNERNAME}}</sch:targetPartnerName>\n         <sch:globalAllianceName>{{GLOBALALLIANCENAME}}</sch:globalAllianceName>\n         <sch:globalSimTransferType>{{GLOBALSIMTRANSFERTYPE}}</sch:globalSimTransferType>\n         <!--Optional:-->\n         <sch:callbackNotificationURL>{{CALLBACKNOTIFICATIONURL}}</sch:callbackNotificationURL>\n      </sch:TransferGlobalSimRequest>\n   </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SOAPURL}}/ws/service/globalsimtransfer",
+									"host": [
+										"{{SOAPURL}}"
+									],
+									"path": [
+										"ws",
+										"service",
+										"globalsimtransfer"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "NetworkAccessBinding",
+			"item": [
+				{
+					"name": "EditNetworkAccessConfig",
+					"item": [
+						{
+							"name": "Request 1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPACTION",
+										"value": "\"http://api.jasperwireless.com/ws/service/networkaccess/EditNetworkAccessConfig\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sch=\"http://api.jasperwireless.com/ws/schema\">\n   <soapenv:Header> \n      <wsse:Security soapenv:mustUnderstand=\"1\" xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"> \n            <wsse:UsernameToken> \n            <wsse:Username>{{USERNAME}}</wsse:Username> \n            <wsse:Password Type=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText\">{{PASSWORD}}</wsse:Password> \n         </wsse:UsernameToken> \n      </wsse:Security> \n   </soapenv:Header>\n   <soapenv:Body>\n      <sch:EditNetworkAccessConfigRequest>\n         <sch:messageId>{{MESSAGEID}}</sch:messageId>\n         <sch:version>{{VERSION}}</sch:version>\n         <sch:licenseKey>{{LICENSEKEY}}</sch:licenseKey>\n         <sch:iccid>{{ICCID}}</sch:iccid>\n         <sch:nacId>{{NACID}}</sch:nacId>\n         <!--Optional:-->\n         <sch:effectiveDate>{{EFFECTIVEDATE}}</sch:effectiveDate>\n      </sch:EditNetworkAccessConfigRequest>\n   </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SOAPURL}}/ws/service/networkaccess",
+									"host": [
+										"{{SOAPURL}}"
+									],
+									"path": [
+										"ws",
+										"service",
+										"networkaccess"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "GetNetworkAccessConfig",
+					"item": [
+						{
+							"name": "Request 1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPACTION",
+										"value": "\"http://api.jasperwireless.com/ws/service/networkaccess/GetNetworkAccessConfig\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sch=\"http://api.jasperwireless.com/ws/schema\">\n   <soapenv:Header> \n      <wsse:Security soapenv:mustUnderstand=\"1\" xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"> \n            <wsse:UsernameToken> \n            <wsse:Username>{{USERNAME}}</wsse:Username> \n            <wsse:Password Type=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText\">{{PASSWORD}}</wsse:Password> \n         </wsse:UsernameToken> \n      </wsse:Security> \n   </soapenv:Header>\n   <soapenv:Body>\n      <sch:GetNetworkAccessConfigRequest>\n         <sch:messageId>{{MESSAGEID}}</sch:messageId>\n         <sch:version>{{VERSION}}</sch:version>\n         <sch:licenseKey>{{LICENSEKEY}}</sch:licenseKey>\n         <!--1 or more repetitions:-->\n         <sch:iccid>{{ICCID}}</sch:iccid>\n      </sch:GetNetworkAccessConfigRequest>\n   </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SOAPURL}}/ws/service/networkaccess",
+									"host": [
+										"{{SOAPURL}}"
+									],
+									"path": [
+										"ws",
+										"service",
+										"networkaccess"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "OrderBinding",
+			"item": [
+				{
+					"name": "AdvanceShipmentNotification",
+					"item": [
+						{
+							"name": "Request 1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPACTION",
+										"value": "\"http://api.jasperwireless.com/ws/service/order/AdvanceShipmentNotification\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sch=\"http://api.jasperwireless.com/ws/schema\">\n   <soapenv:Header> \n      <wsse:Security soapenv:mustUnderstand=\"1\" xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"> \n            <wsse:UsernameToken> \n            <wsse:Username>{{USERNAME}}</wsse:Username> \n            <wsse:Password Type=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText\">{{PASSWORD}}</wsse:Password> \n         </wsse:UsernameToken> \n      </wsse:Security> \n   </soapenv:Header>\n   <soapenv:Body>\n      <sch:AdvanceShipmentNotificationRequest>\n         <sch:messageId>{{MESSAGEID}}</sch:messageId>\n         <sch:version>{{VERSION}}</sch:version>\n         <sch:licenseKey>{{LICENSEKEY}}</sch:licenseKey>\n         <sch:orderId>{{ORDERID}}</sch:orderId>\n         <!--Optional:-->\n         <sch:statusUpdateNote>{{STATUSUPDATENOTE}}</sch:statusUpdateNote>\n         <sch:orderLineItems>\n            <sch:orderLineItem>\n               <sch:shipments>\n                  <sch:shipment>\n                     <!--Optional:-->\n                     <sch:iccids>\n                        <!--1 or more repetitions:-->\n                        <sch:iccid>{{ICCID}}</sch:iccid>\n                     </sch:iccids>\n                     <!--Optional:-->\n                     <sch:targetRatePlan>{{TARGETRATEPLAN}}</sch:targetRatePlan>\n                     <!--Optional:-->\n                     <sch:targetCommunicationPlan>{{TARGETCOMMUNICATIONPLAN}}</sch:targetCommunicationPlan>\n                     <!--Optional:-->\n                     <sch:targetSIMStatus>{{TARGETSIMSTATUS}}</sch:targetSIMStatus>\n                     <sch:TrackingNumber>{{TRACKINGNUMBER}}</sch:TrackingNumber>\n                     <!--Optional:-->\n                     <sch:shipDate>{{SHIPDATE}}</sch:shipDate>\n                     <!--Optional:-->\n                     <sch:TrackingURL>{{TRACKINGURL}}</sch:TrackingURL>\n                     <!--Optional:-->\n                     <sch:shipmentStatus>{{SHIPMENTSTATUS}}</sch:shipmentStatus>\n                  </sch:shipment>\n               </sch:shipments>\n            </sch:orderLineItem>\n         </sch:orderLineItems>\n         <!--You may enter ANY elements at this point-->\n      </sch:AdvanceShipmentNotificationRequest>\n   </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SOAPURL}}/ws/service/order",
+									"host": [
+										"{{SOAPURL}}"
+									],
+									"path": [
+										"ws",
+										"service",
+										"order"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "GetBulkUpdateStatus",
+					"item": [
+						{
+							"name": "Request 1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPACTION",
+										"value": "\"http://api.jasperwireless.com/ws/service/order/GetBulkUpdateStatus\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sch=\"http://api.jasperwireless.com/ws/schema\">\n   <soapenv:Header> \n      <wsse:Security soapenv:mustUnderstand=\"1\" xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"> \n            <wsse:UsernameToken> \n            <wsse:Username>{{USERNAME}}</wsse:Username> \n            <wsse:Password Type=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText\">{{PASSWORD}}</wsse:Password> \n         </wsse:UsernameToken> \n      </wsse:Security> \n   </soapenv:Header>\n   <soapenv:Body>\n      <sch:GetBulkUpdateStatusRequest>\n         <sch:messageId>{{MESSAGEID}}</sch:messageId>\n         <sch:version>{{VERSION}}</sch:version>\n         <sch:licenseKey>{{LICENSEKEY}}</sch:licenseKey>\n         <sch:orderId>{{ORDERID}}</sch:orderId>\n      </sch:GetBulkUpdateStatusRequest>\n   </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SOAPURL}}/ws/service/order",
+									"host": [
+										"{{SOAPURL}}"
+									],
+									"path": [
+										"ws",
+										"service",
+										"order"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "UpdateOrderStatus",
+					"item": [
+						{
+							"name": "Request 1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPACTION",
+										"value": "\"http://api.jasperwireless.com/ws/service/order/UpdateOrderStatus\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sch=\"http://api.jasperwireless.com/ws/schema\">\n   <soapenv:Header> \n      <wsse:Security soapenv:mustUnderstand=\"1\" xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"> \n            <wsse:UsernameToken> \n            <wsse:Username>{{USERNAME}}</wsse:Username> \n            <wsse:Password Type=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText\">{{PASSWORD}}</wsse:Password> \n         </wsse:UsernameToken> \n      </wsse:Security> \n   </soapenv:Header>\n   <soapenv:Body>\n      <sch:UpdateOrderStatusRequest>\n         <sch:messageId>{{MESSAGEID}}</sch:messageId>\n         <sch:version>{{VERSION}}</sch:version>\n         <sch:licenseKey>{{LICENSEKEY}}</sch:licenseKey>\n         <sch:orderId>{{ORDERID}}</sch:orderId>\n         <sch:orderStatus>{{ORDERSTATUS}}</sch:orderStatus>\n         <!--Optional:-->\n         <sch:statusUpdateNote>{{STATUSUPDATENOTE}}</sch:statusUpdateNote>\n         <!--Optional:-->\n         <sch:shippingTrackingNumber>{{SHIPPINGTRACKINGNUMBER}}</sch:shippingTrackingNumber>\n      </sch:UpdateOrderStatusRequest>\n   </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SOAPURL}}/ws/service/order",
+									"host": [
+										"{{SOAPURL}}"
+									],
+									"path": [
+										"ws",
+										"service",
+										"order"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "SmsBinding",
+			"item": [
+				{
+					"name": "GetModifiedSMS",
+					"item": [
+						{
+							"name": "Request 1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPACTION",
+										"value": "\"http://api.jasperwireless.com/ws/service/Sms/GetModifiedSMS\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sch=\"http://api.jasperwireless.com/ws/schema\">\n   <soapenv:Header> \n      <wsse:Security soapenv:mustUnderstand=\"1\" xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"> \n            <wsse:UsernameToken> \n            <wsse:Username>{{USERNAME}}</wsse:Username> \n            <wsse:Password Type=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText\">{{PASSWORD}}</wsse:Password> \n         </wsse:UsernameToken> \n      </wsse:Security> \n   </soapenv:Header>\n   <soapenv:Body>\n      <sch:GetModifiedSMSRequest>\n         <sch:messageId>{{MESSAGEID}}</sch:messageId>\n         <sch:version>{{VERSION}}</sch:version>\n         <sch:licenseKey>{{LICENSEKEY}}</sch:licenseKey>\n         <!--Optional:-->\n         <sch:iccid>{{ICCID}}</sch:iccid>\n         <!--Optional:-->\n         <sch:fromDate>{{FROMDATE}}</sch:fromDate>\n         <!--Optional:-->\n         <sch:toDate>{{TODATE}}</sch:toDate>\n         <!--Optional:-->\n         <sch:pageNumber>{{PAGENUMBER}}</sch:pageNumber>\n      </sch:GetModifiedSMSRequest>\n   </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SOAPURL}}/ws/service/Sms",
+									"host": [
+										"{{SOAPURL}}"
+									],
+									"path": [
+										"ws",
+										"service",
+										"Sms"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "GetSMSDetails",
+					"item": [
+						{
+							"name": "Request 1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPACTION",
+										"value": "\"http://api.jasperwireless.com/ws/service/Sms/GetSMSDetails\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sch=\"http://api.jasperwireless.com/ws/schema\">\n   <soapenv:Header> \n      <wsse:Security soapenv:mustUnderstand=\"1\" xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"> \n            <wsse:UsernameToken> \n            <wsse:Username>{{USERNAME}}</wsse:Username> \n            <wsse:Password Type=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText\">{{PASSWORD}}</wsse:Password> \n         </wsse:UsernameToken> \n      </wsse:Security> \n   </soapenv:Header>\n   <soapenv:Body>\n      <sch:GetSMSDetailsRequest messageTextEncoding=\"?\">\n         <sch:messageId>{{MESSAGEID}}</sch:messageId>\n         <sch:version>{{VERSION}}</sch:version>\n         <sch:licenseKey>{{LICENSEKEY}}</sch:licenseKey>\n         <sch:smsMsgIds>\n            <!--1 or more repetitions:-->\n            <sch:smsMsgId>{{SMSMSGID}}</sch:smsMsgId>\n         </sch:smsMsgIds>\n      </sch:GetSMSDetailsRequest>\n   </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SOAPURL}}/ws/service/Sms",
+									"host": [
+										"{{SOAPURL}}"
+									],
+									"path": [
+										"ws",
+										"service",
+										"Sms"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "SendBulkSMS",
+					"item": [
+						{
+							"name": "Request 1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPACTION",
+										"value": "\"http://api.jasperwireless.com/ws/service/Sms/SendBulkSMS\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sch=\"http://api.jasperwireless.com/ws/schema\">\n   <soapenv:Header> \n      <wsse:Security soapenv:mustUnderstand=\"1\" xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"> \n            <wsse:UsernameToken> \n            <wsse:Username>{{USERNAME}}</wsse:Username> \n            <wsse:Password Type=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText\">{{PASSWORD}}</wsse:Password> \n         </wsse:UsernameToken> \n      </wsse:Security> \n   </soapenv:Header>\n   <soapenv:Body>\n      <sch:SendBulkSMSRequest messageTextEncoding=\"?\">\n         <sch:messageId>{{MESSAGEID}}</sch:messageId>\n         <sch:version>{{VERSION}}</sch:version>\n         <sch:licenseKey>{{LICENSEKEY}}</sch:licenseKey>\n         <sch:iccidList>\n            <!--1 or more repetitions:-->\n            <sch:iccid>{{ICCID}}</sch:iccid>\n         </sch:iccidList>\n         <sch:messageText>{{MESSAGETEXT}}</sch:messageText>\n         <!--Optional:-->\n         <sch:tpvp>{{TPVP}}</sch:tpvp>\n      </sch:SendBulkSMSRequest>\n   </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SOAPURL}}/ws/service/Sms",
+									"host": [
+										"{{SOAPURL}}"
+									],
+									"path": [
+										"ws",
+										"service",
+										"Sms"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "SendBulkSMSToMsisdn",
+					"item": [
+						{
+							"name": "Request 1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPACTION",
+										"value": "\"http://api.jasperwireless.com/ws/service/Sms/SendBulkSMSToMsisdn\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sch=\"http://api.jasperwireless.com/ws/schema\">\n   <soapenv:Header> \n      <wsse:Security soapenv:mustUnderstand=\"1\" xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"> \n            <wsse:UsernameToken> \n            <wsse:Username>{{USERNAME}}</wsse:Username> \n            <wsse:Password Type=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText\">{{PASSWORD}}</wsse:Password> \n         </wsse:UsernameToken> \n      </wsse:Security> \n   </soapenv:Header>\n   <soapenv:Body>\n      <sch:SendBulkSMSToMsisdnRequest messageTextEncoding=\"?\">\n         <sch:messageId>{{MESSAGEID}}</sch:messageId>\n         <sch:version>{{VERSION}}</sch:version>\n         <sch:licenseKey>{{LICENSEKEY}}</sch:licenseKey>\n         <sch:msisdnList>\n            <!--1 or more repetitions:-->\n            <sch:msisdn>{{MSISDN}}</sch:msisdn>\n         </sch:msisdnList>\n         <sch:messageText>{{MESSAGETEXT}}</sch:messageText>\n         <!--Optional:-->\n         <sch:tpvp>{{TPVP}}</sch:tpvp>\n      </sch:SendBulkSMSToMsisdnRequest>\n   </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SOAPURL}}/ws/service/Sms",
+									"host": [
+										"{{SOAPURL}}"
+									],
+									"path": [
+										"ws",
+										"service",
+										"Sms"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "SendSMS",
+					"item": [
+						{
+							"name": "Request 1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPACTION",
+										"value": "\"http://api.jasperwireless.com/ws/service/Sms/SendSMS\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sch=\"http://api.jasperwireless.com/ws/schema\">\n   <soapenv:Header> \n      <wsse:Security soapenv:mustUnderstand=\"1\" xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"> \n            <wsse:UsernameToken> \n            <wsse:Username>{{USERNAME}}</wsse:Username> \n            <wsse:Password Type=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText\">{{PASSWORD}}</wsse:Password> \n         </wsse:UsernameToken> \n      </wsse:Security> \n   </soapenv:Header>\n   <soapenv:Body>\n      <sch:SendSMSRequest messageTextEncoding=\"?\">\n         <sch:messageId>{{MESSAGEID}}</sch:messageId>\n         <sch:version>{{VERSION}}</sch:version>\n         <sch:licenseKey>{{LICENSEKEY}}</sch:licenseKey>\n         <sch:sentToIccid>{{SENTTOICCID}}</sch:sentToIccid>\n         <sch:messageText>{{MESSAGETEXT}}</sch:messageText>\n         <!--Optional:-->\n         <sch:tpvp>{{TPVP}}</sch:tpvp>\n      </sch:SendSMSRequest>\n   </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SOAPURL}}/ws/service/Sms",
+									"host": [
+										"{{SOAPURL}}"
+									],
+									"path": [
+										"ws",
+										"service",
+										"Sms"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "SendSMSToMsisdn",
+					"item": [
+						{
+							"name": "Request 1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPACTION",
+										"value": "\"http://api.jasperwireless.com/ws/service/Sms/SendSMSToMsisdn\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sch=\"http://api.jasperwireless.com/ws/schema\">\n   <soapenv:Header> \n      <wsse:Security soapenv:mustUnderstand=\"1\" xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"> \n            <wsse:UsernameToken> \n            <wsse:Username>{{USERNAME}}</wsse:Username> \n            <wsse:Password Type=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText\">{{PASSWORD}}</wsse:Password> \n         </wsse:UsernameToken> \n      </wsse:Security> \n   </soapenv:Header>\n   <soapenv:Body>\n      <sch:SendSMSToMsisdnRequest messageTextEncoding=\"?\">\n         <sch:messageId>{{MESSAGEID}}</sch:messageId>\n         <sch:version>{{VERSION}}</sch:version>\n         <sch:licenseKey>{{LICENSEKEY}}</sch:licenseKey>\n         <sch:sentToMsisdn>{{SENTTOMSISDN}}</sch:sentToMsisdn>\n         <sch:messageText>{{MESSAGETEXT}}</sch:messageText>\n         <!--Optional:-->\n         <sch:tpvp>{{TPVP}}</sch:tpvp>\n      </sch:SendSMSToMsisdnRequest>\n   </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SOAPURL}}/ws/service/Sms",
+									"host": [
+										"{{SOAPURL}}"
+									],
+									"path": [
+										"ws",
+										"service",
+										"Sms"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "TerminalBinding",
+			"item": [
+				{
+					"name": "AssignOrUpdateIPAddress",
+					"item": [
+						{
+							"name": "Request 1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPACTION",
+										"value": "\"http://api.jasperwireless.com/ws/service/terminal/AssignOrUpdateIPAddress\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sch=\"http://api.jasperwireless.com/ws/schema\">\n   <soapenv:Header> \n      <wsse:Security soapenv:mustUnderstand=\"1\" xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"> \n            <wsse:UsernameToken> \n            <wsse:Username>{{USERNAME}}</wsse:Username> \n            <wsse:Password Type=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText\">{{PASSWORD}}</wsse:Password> \n         </wsse:UsernameToken> \n      </wsse:Security> \n   </soapenv:Header>\n   <soapenv:Body>\n      <sch:AssignOrUpdateIPAddressRequest>\n         <sch:messageId>{{MESSAGEID}}</sch:messageId>\n         <sch:version>{{VERSION}}</sch:version>\n         <sch:licenseKey>{{LICENSEKEY}}</sch:licenseKey>\n         <sch:iccid>{{ICCID}}</sch:iccid>\n         <sch:apn>{{APN}}</sch:apn>\n         <sch:ipAddress>{{IPADDRESS}}</sch:ipAddress>\n         <!--Optional:-->\n         <sch:pdpId>{{PDPID}}</sch:pdpId>\n      </sch:AssignOrUpdateIPAddressRequest>\n   </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SOAPURL}}/ws/service/terminal",
+									"host": [
+										"{{SOAPURL}}"
+									],
+									"path": [
+										"ws",
+										"service",
+										"terminal"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "EditLinePayStatus",
+					"item": [
+						{
+							"name": "Request 1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPACTION",
+										"value": "\"http://api.jasperwireless.com/ws/service/terminal/EditLinePayStatus\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sch=\"http://api.jasperwireless.com/ws/schema\">\n   <soapenv:Header> \n      <wsse:Security soapenv:mustUnderstand=\"1\" xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"> \n            <wsse:UsernameToken> \n            <wsse:Username>{{USERNAME}}</wsse:Username> \n            <wsse:Password Type=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText\">{{PASSWORD}}</wsse:Password> \n         </wsse:UsernameToken> \n      </wsse:Security> \n   </soapenv:Header>\n   <soapenv:Body>\n      <sch:EditLinePayStatusRequest>\n         <sch:messageId>{{MESSAGEID}}</sch:messageId>\n         <sch:version>{{VERSION}}</sch:version>\n         <sch:licenseKey>{{LICENSEKEY}}</sch:licenseKey>\n         <sch:iccid>{{ICCID}}</sch:iccid>\n         <sch:linePaymentStatus>{{LINEPAYMENTSTATUS}}</sch:linePaymentStatus>\n      </sch:EditLinePayStatusRequest>\n   </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SOAPURL}}/ws/service/terminal",
+									"host": [
+										"{{SOAPURL}}"
+									],
+									"path": [
+										"ws",
+										"service",
+										"terminal"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "EditLinePayStatusPerAcct",
+					"item": [
+						{
+							"name": "Request 1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPACTION",
+										"value": "\"http://api.jasperwireless.com/ws/service/terminal/EditLinePayStatusPerAcct\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sch=\"http://api.jasperwireless.com/ws/schema\">\n   <soapenv:Header> \n      <wsse:Security soapenv:mustUnderstand=\"1\" xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"> \n            <wsse:UsernameToken> \n            <wsse:Username>{{USERNAME}}</wsse:Username> \n            <wsse:Password Type=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText\">{{PASSWORD}}</wsse:Password> \n         </wsse:UsernameToken> \n      </wsse:Security> \n   </soapenv:Header>\n   <soapenv:Body>\n      <sch:EditLinePayStatusPerAcctRequest>\n         <sch:messageId>{{MESSAGEID}}</sch:messageId>\n         <sch:version>{{VERSION}}</sch:version>\n         <sch:licenseKey>{{LICENSEKEY}}</sch:licenseKey>\n         <sch:operatorAccountId>{{OPERATORACCOUNTID}}</sch:operatorAccountId>\n         <sch:linePaymentStatus>{{LINEPAYMENTSTATUS}}</sch:linePaymentStatus>\n      </sch:EditLinePayStatusPerAcctRequest>\n   </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SOAPURL}}/ws/service/terminal",
+									"host": [
+										"{{SOAPURL}}"
+									],
+									"path": [
+										"ws",
+										"service",
+										"terminal"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "EditTerminal",
+					"item": [
+						{
+							"name": "Request 1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPACTION",
+										"value": "\"http://api.jasperwireless.com/ws/service/terminal/EditTerminal\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sch=\"http://api.jasperwireless.com/ws/schema\">\n   <soapenv:Header> \n      <wsse:Security soapenv:mustUnderstand=\"1\" xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"> \n            <wsse:UsernameToken> \n            <wsse:Username>{{USERNAME}}</wsse:Username> \n            <wsse:Password Type=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText\">{{PASSWORD}}</wsse:Password> \n         </wsse:UsernameToken> \n      </wsse:Security> \n   </soapenv:Header>\n   <soapenv:Body>\n      <sch:EditTerminalRequest>\n         <sch:messageId>{{MESSAGEID}}</sch:messageId>\n         <sch:version>{{VERSION}}</sch:version>\n         <sch:licenseKey>{{LICENSEKEY}}</sch:licenseKey>\n         <sch:iccid>{{ICCID}}</sch:iccid>\n         <!--Optional:-->\n         <sch:effectiveDate>{{EFFECTIVEDATE}}</sch:effectiveDate>\n         <!--Optional:-->\n         <sch:targetValue>{{TARGETVALUE}}</sch:targetValue>\n         <sch:changeType>{{CHANGETYPE}}</sch:changeType>\n      </sch:EditTerminalRequest>\n   </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SOAPURL}}/ws/service/terminal",
+									"host": [
+										"{{SOAPURL}}"
+									],
+									"path": [
+										"ws",
+										"service",
+										"terminal"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "EditTerminalRating",
+					"item": [
+						{
+							"name": "Request 1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPACTION",
+										"value": "\"http://api.jasperwireless.com/ws/service/terminal/EditTerminalRating\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sch=\"http://api.jasperwireless.com/ws/schema\">\n   <soapenv:Header> \n      <wsse:Security soapenv:mustUnderstand=\"1\" xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"> \n            <wsse:UsernameToken> \n            <wsse:Username>{{USERNAME}}</wsse:Username> \n            <wsse:Password Type=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText\">{{PASSWORD}}</wsse:Password> \n         </wsse:UsernameToken> \n      </wsse:Security> \n   </soapenv:Header>\n   <soapenv:Body>\n      <sch:EditTerminalRatingRequest>\n         <sch:messageId>{{MESSAGEID}}</sch:messageId>\n         <sch:version>{{VERSION}}</sch:version>\n         <sch:licenseKey>{{LICENSEKEY}}</sch:licenseKey>\n         <sch:iccid>{{ICCID}}</sch:iccid>\n         <!--Optional:-->\n         <sch:termStartDate>{{TERMSTARTDATE}}</sch:termStartDate>\n         <!--Optional:-->\n         <sch:termEndDate>{{TERMENDDATE}}</sch:termEndDate>\n         <!--Optional:-->\n         <sch:renewalMode>{{RENEWALMODE}}</sch:renewalMode>\n         <!--Optional:-->\n         <sch:renewalRatePlan>{{RENEWALRATEPLAN}}</sch:renewalRatePlan>\n      </sch:EditTerminalRatingRequest>\n   </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SOAPURL}}/ws/service/terminal",
+									"host": [
+										"{{SOAPURL}}"
+									],
+									"path": [
+										"ws",
+										"service",
+										"terminal"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "GetLinePayStatusByOpAcctId",
+					"item": [
+						{
+							"name": "Request 1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPACTION",
+										"value": "\"http://api.jasperwireless.com/ws/service/terminal/GetLinePayStatusByOpAcctId\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sch=\"http://api.jasperwireless.com/ws/schema\">\n   <soapenv:Header> \n      <wsse:Security soapenv:mustUnderstand=\"1\" xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"> \n            <wsse:UsernameToken> \n            <wsse:Username>{{USERNAME}}</wsse:Username> \n            <wsse:Password Type=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText\">{{PASSWORD}}</wsse:Password> \n         </wsse:UsernameToken> \n      </wsse:Security> \n   </soapenv:Header>\n   <soapenv:Body>\n      <sch:GetLinePayStatusByOpAcctIdRequest>\n         <sch:messageId>{{MESSAGEID}}</sch:messageId>\n         <sch:version>{{VERSION}}</sch:version>\n         <sch:licenseKey>{{LICENSEKEY}}</sch:licenseKey>\n         <sch:operatorAccountId>{{OPERATORACCOUNTID}}</sch:operatorAccountId>\n      </sch:GetLinePayStatusByOpAcctIdRequest>\n   </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SOAPURL}}/ws/service/terminal",
+									"host": [
+										"{{SOAPURL}}"
+									],
+									"path": [
+										"ws",
+										"service",
+										"terminal"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "GetModifiedTerminals",
+					"item": [
+						{
+							"name": "Request 1",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var template = `",
+											"<style type=\"text/css\">",
+											"    .tftable {font-size:14px;color:#333333;width:100%;border-width: 1px;border-color: #87ceeb;border-collapse: collapse;}",
+											"    .tftable th {font-size:18px;background-color:#87ceeb;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;text-align:left;}",
+											"    .tftable tr {background-color:#ffffff;}",
+											"    .tftable td {font-size:14px;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;}",
+											"    .tftable tr:hover {background-color:#e0ffff;}",
+											"</style>",
+											"",
+											"<table class=\"tftable\" border=\"1\">",
+											"    <tr>",
+											"        <th>Request ID</th>",
+											"        <th>Correlation ID</th>",
+											"        <th>Version</th>",
+											"        <th>Build</th>",
+											"        <th>Timestamp</th>",
+											"        <th>Total Pages</th>",
+											"    </tr>",
+											"    <tr>",
+											"        <td>{{response[\"SOAP-ENV:Envelope\"][\"SOAP-ENV:Body\"][\"ns2:GetModifiedTerminalsResponse\"][\"ns2:requestId\"]}}</td>",
+											"        <td>{{response[\"SOAP-ENV:Envelope\"][\"SOAP-ENV:Body\"][\"ns2:GetModifiedTerminalsResponse\"][\"ns2:correlationId\"]}}</td>",
+											"        <td>{{response[\"SOAP-ENV:Envelope\"][\"SOAP-ENV:Body\"][\"ns2:GetModifiedTerminalsResponse\"][\"ns2:version\"]}}</td>",
+											"        <td>{{response[\"SOAP-ENV:Envelope\"][\"SOAP-ENV:Body\"][\"ns2:GetModifiedTerminalsResponse\"][\"ns2:build\"]}}</td>",
+											"        <td>{{response[\"SOAP-ENV:Envelope\"][\"SOAP-ENV:Body\"][\"ns2:GetModifiedTerminalsResponse\"][\"ns2:timestamp\"]}}</td>",
+											"        <td>{{response[\"SOAP-ENV:Envelope\"][\"SOAP-ENV:Body\"][\"ns2:GetModifiedTerminalsResponse\"][\"ns2:totalPages\"]}}</td>",
+											"    </tr>",
+											"</table>",
+											"`;",
+											"",
+											"function constructVisualizerPayload() {",
+											"    return {response: pm.response.json()}",
+											"}",
+											"",
+											"pm.visualizer.set(template, constructVisualizerPayload());"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPACTION",
+										"value": "\"http://api.jasperwireless.com/ws/service/terminal/GetModifiedTerminals\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sch=\"http://api.jasperwireless.com/ws/schema\">\n<soapenv:Header> \n      <wsse:Security soapenv:mustUnderstand=\"1\" xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"> \n         <wsse:UsernameToken> \n            <wsse:Username>{{USERNAME}}</wsse:Username> \n            <wsse:Password Type=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText\">{{PASSWORD}}</wsse:Password> \n         </wsse:UsernameToken> \n      </wsse:Security> \n   </soapenv:Header>\n   <soapenv:Body>\n      <sch:GetModifiedTerminalsRequest accountId=\"{{ACCOUNTID}}\">\n         <sch:messageId>{{MESSAGEID}}</sch:messageId>\n         <sch:version>{{VERSION}}</sch:version>\n         <sch:licenseKey>{{LICENSEKEY}}</sch:licenseKey>\n      </sch:GetModifiedTerminalsRequest>\n   </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SOAPURL}}/ws/service/terminal",
+									"host": [
+										"{{SOAPURL}}"
+									],
+									"path": [
+										"ws",
+										"service",
+										"terminal"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "GetProvisioningStatus",
+					"item": [
+						{
+							"name": "Request 1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPACTION",
+										"value": "\"http://api.jasperwireless.com/ws/service/terminal/GetProvisioningStatus\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sch=\"http://api.jasperwireless.com/ws/schema\">\n   <soapenv:Header> \n      <wsse:Security soapenv:mustUnderstand=\"1\" xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"> \n            <wsse:UsernameToken> \n            <wsse:Username>{{USERNAME}}</wsse:Username> \n            <wsse:Password Type=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText\">{{PASSWORD}}</wsse:Password> \n         </wsse:UsernameToken> \n      </wsse:Security> \n   </soapenv:Header>\n   <soapenv:Body>\n      <sch:GetProvisioningStatusRequest accountId=\"?\">\n         <sch:messageId>{{MESSAGEID}}</sch:messageId>\n         <sch:version>{{VERSION}}</sch:version>\n         <sch:licenseKey>{{LICENSEKEY}}</sch:licenseKey>\n         <sch:iccid>{{ICCID}}</sch:iccid>\n         <sch:changeType>{{CHANGETYPE}}</sch:changeType>\n      </sch:GetProvisioningStatusRequest>\n   </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SOAPURL}}/ws/service/terminal",
+									"host": [
+										"{{SOAPURL}}"
+									],
+									"path": [
+										"ws",
+										"service",
+										"terminal"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "GetSessionInfo",
+					"item": [
+						{
+							"name": "Request 1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPACTION",
+										"value": "\"http://api.jasperwireless.com/ws/service/terminal/GetSessionInfo\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sch=\"http://api.jasperwireless.com/ws/schema\">\n   <soapenv:Header> \n      <wsse:Security soapenv:mustUnderstand=\"1\" xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"> \n            <wsse:UsernameToken> \n            <wsse:Username>{{USERNAME}}</wsse:Username> \n            <wsse:Password Type=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText\">{{PASSWORD}}</wsse:Password> \n         </wsse:UsernameToken> \n      </wsse:Security> \n   </soapenv:Header>\n   <soapenv:Body>\n      <sch:GetSessionInfoRequest>\n         <sch:messageId>{{MESSAGEID}}</sch:messageId>\n         <sch:version>{{VERSION}}</sch:version>\n         <sch:licenseKey>{{LICENSEKEY}}</sch:licenseKey>\n         <!--1 or more repetitions:-->\n         <sch:iccid>{{ICCID}}</sch:iccid>\n      </sch:GetSessionInfoRequest>\n   </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SOAPURL}}/ws/service/terminal",
+									"host": [
+										"{{SOAPURL}}"
+									],
+									"path": [
+										"ws",
+										"service",
+										"terminal"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "GetTerminalAuditTrail",
+					"item": [
+						{
+							"name": "Request 1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPACTION",
+										"value": "\"http://api.jasperwireless.com/ws/service/terminal/GetTerminalAuditTrail\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sch=\"http://api.jasperwireless.com/ws/schema\">\n   <soapenv:Header> \n      <wsse:Security soapenv:mustUnderstand=\"1\" xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"> \n            <wsse:UsernameToken> \n            <wsse:Username>{{USERNAME}}</wsse:Username> \n            <wsse:Password Type=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText\">{{PASSWORD}}</wsse:Password> \n         </wsse:UsernameToken> \n      </wsse:Security> \n   </soapenv:Header>\n   <soapenv:Body>\n      <sch:GetTerminalAuditTrailRequest>\n         <sch:messageId>{{MESSAGEID}}</sch:messageId>\n         <sch:version>{{VERSION}}</sch:version>\n         <sch:licenseKey>{{LICENSEKEY}}</sch:licenseKey>\n         <sch:iccid>{{ICCID}}</sch:iccid>\n         <!--Optional:-->\n         <sch:daysOfHistory>{{DAYSOFHISTORY}}</sch:daysOfHistory>\n         <!--Optional:-->\n         <sch:date>{{DATE}}</sch:date>\n         <!--Optional:-->\n         <sch:pageNumber>{{PAGENUMBER}}</sch:pageNumber>\n      </sch:GetTerminalAuditTrailRequest>\n   </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SOAPURL}}/ws/service/terminal",
+									"host": [
+										"{{SOAPURL}}"
+									],
+									"path": [
+										"ws",
+										"service",
+										"terminal"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "GetTerminalDetails",
+					"item": [
+						{
+							"name": "Request 1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPACTION",
+										"value": "\"http://api.jasperwireless.com/ws/service/terminal/GetTerminalDetails\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sch=\"http://api.jasperwireless.com/ws/schema\">\n<soapenv:Header> \n      <wsse:Security soapenv:mustUnderstand=\"1\" xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"> \n         <wsse:UsernameToken> \n            <wsse:Username>{{USERNAME}}</wsse:Username> \n            <wsse:Password Type=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText\">{{PASSWORD}}</wsse:Password> \n         </wsse:UsernameToken> \n      </wsse:Security> \n   </soapenv:Header>\n   <soapenv:Body>\n      <sch:GetTerminalDetailsRequest>\n         <sch:messageId>{{MESSAGEID}}</sch:messageId>\n         <sch:version>{{VERSION}}</sch:version>\n         <sch:licenseKey>{{LICENSEKEY}}</sch:licenseKey>\n         <sch:iccids>\n            <!--1 or more repetitions:-->\n            <sch:iccid>{{ICCID}}</sch:iccid>\n         </sch:iccids>\n      </sch:GetTerminalDetailsRequest>\n   </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SOAPURL}}/ws/service/terminal",
+									"host": [
+										"{{SOAPURL}}"
+									],
+									"path": [
+										"ws",
+										"service",
+										"terminal"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "GetTerminalLatestNetworkRegistration",
+					"item": [
+						{
+							"name": "Request 1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPACTION",
+										"value": "\"http://api.jasperwireless.com/ws/service/terminal/GetTerminalLatestNetworkRegistration\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sch=\"http://api.jasperwireless.com/ws/schema\">\n   <soapenv:Header> \n      <wsse:Security soapenv:mustUnderstand=\"1\" xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"> \n            <wsse:UsernameToken> \n            <wsse:Username>{{USERNAME}}</wsse:Username> \n            <wsse:Password Type=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText\">{{PASSWORD}}</wsse:Password> \n         </wsse:UsernameToken> \n      </wsse:Security> \n   </soapenv:Header>\n   <soapenv:Body>\n      <sch:GetTerminalLatestNetworkRegistrationRequest>\n         <sch:messageId>{{MESSAGEID}}</sch:messageId>\n         <sch:version>{{VERSION}}</sch:version>\n         <sch:licenseKey>{{LICENSEKEY}}</sch:licenseKey>\n         <sch:imsi>{{IMSI}}</sch:imsi>\n      </sch:GetTerminalLatestNetworkRegistrationRequest>\n   </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SOAPURL}}/ws/service/terminal",
+									"host": [
+										"{{SOAPURL}}"
+									],
+									"path": [
+										"ws",
+										"service",
+										"terminal"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "GetTerminalLatestRegistration",
+					"item": [
+						{
+							"name": "Request 1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPACTION",
+										"value": "\"http://api.jasperwireless.com/ws/service/terminal/GetTerminalLatestRegistration\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sch=\"http://api.jasperwireless.com/ws/schema\">\n   <soapenv:Header> \n      <wsse:Security soapenv:mustUnderstand=\"1\" xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"> \n            <wsse:UsernameToken> \n            <wsse:Username>{{USERNAME}}</wsse:Username> \n            <wsse:Password Type=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText\">{{PASSWORD}}</wsse:Password> \n         </wsse:UsernameToken> \n      </wsse:Security> \n   </soapenv:Header>\n   <soapenv:Body>\n      <sch:GetTerminalLatestRegistrationRequest>\n         <sch:messageId>{{MESSAGEID}}</sch:messageId>\n         <sch:version>{{VERSION}}</sch:version>\n         <sch:licenseKey>{{LICENSEKEY}}</sch:licenseKey>\n         <sch:imsi>{{IMSI}}</sch:imsi>\n      </sch:GetTerminalLatestRegistrationRequest>\n   </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SOAPURL}}/ws/service/terminal",
+									"host": [
+										"{{SOAPURL}}"
+									],
+									"path": [
+										"ws",
+										"service",
+										"terminal"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "GetTerminalRating",
+					"item": [
+						{
+							"name": "Request 1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPACTION",
+										"value": "\"http://api.jasperwireless.com/ws/service/terminal/GetTerminalRating\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sch=\"http://api.jasperwireless.com/ws/schema\">\n   <soapenv:Header> \n      <wsse:Security soapenv:mustUnderstand=\"1\" xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"> \n            <wsse:UsernameToken> \n            <wsse:Username>{{USERNAME}}</wsse:Username> \n            <wsse:Password Type=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText\">{{PASSWORD}}</wsse:Password> \n         </wsse:UsernameToken> \n      </wsse:Security> \n   </soapenv:Header>\n   <soapenv:Body>\n      <sch:GetTerminalRatingRequest>\n         <sch:messageId>{{MESSAGEID}}</sch:messageId>\n         <sch:version>{{VERSION}}</sch:version>\n         <sch:licenseKey>{{LICENSEKEY}}</sch:licenseKey>\n         <sch:iccid>{{ICCID}}</sch:iccid>\n      </sch:GetTerminalRatingRequest>\n   </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SOAPURL}}/ws/service/terminal",
+									"host": [
+										"{{SOAPURL}}"
+									],
+									"path": [
+										"ws",
+										"service",
+										"terminal"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "GetTerminalsByImsi",
+					"item": [
+						{
+							"name": "Request 1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPACTION",
+										"value": "\"http://api.jasperwireless.com/ws/service/terminal/GetTerminalsByImsi\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sch=\"http://api.jasperwireless.com/ws/schema\">\n   <soapenv:Header> \n      <wsse:Security soapenv:mustUnderstand=\"1\" xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"> \n            <wsse:UsernameToken> \n            <wsse:Username>{{USERNAME}}</wsse:Username> \n            <wsse:Password Type=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText\">{{PASSWORD}}</wsse:Password> \n         </wsse:UsernameToken> \n      </wsse:Security> \n   </soapenv:Header>\n   <soapenv:Body>\n      <sch:GetTerminalsByImsiRequest>\n         <sch:messageId>{{MESSAGEID}}</sch:messageId>\n         <sch:version>{{VERSION}}</sch:version>\n         <sch:licenseKey>{{LICENSEKEY}}</sch:licenseKey>\n         <sch:imsi>\n            <!--1 or more repetitions:-->\n            <sch:imsi>{{IMSI}}</sch:imsi>\n         </sch:imsi>\n      </sch:GetTerminalsByImsiRequest>\n   </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SOAPURL}}/ws/service/terminal",
+									"host": [
+										"{{SOAPURL}}"
+									],
+									"path": [
+										"ws",
+										"service",
+										"terminal"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "GetTerminalsByMsisdn",
+					"item": [
+						{
+							"name": "Request 1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPACTION",
+										"value": "\"http://api.jasperwireless.com/ws/service/terminal/GetTerminalsByMsisdn\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sch=\"http://api.jasperwireless.com/ws/schema\">\n<soapenv:Header> \n      <wsse:Security soapenv:mustUnderstand=\"1\" xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"> \n         <wsse:UsernameToken> \n            <wsse:Username>{{USERNAME}}</wsse:Username> \n            <wsse:Password Type=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText\">{{PASSWORD}}</wsse:Password> \n         </wsse:UsernameToken> \n      </wsse:Security> \n   </soapenv:Header>\n   <soapenv:Body>\n      <sch:GetTerminalsByMsisdnRequest>\n         <sch:messageId>{{MESSAGEID}}</sch:messageId>\n         <sch:version>{{VERSION}}</sch:version>\n         <sch:licenseKey>{{LICENSEKEY}}</sch:licenseKey>\n         <sch:msisdns>\n            <!--1 or more repetitions:-->\n            <sch:msisdn>{{MSISDN}}</sch:msisdn>\n         </sch:msisdns>\n      </sch:GetTerminalsByMsisdnRequest>\n   </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SOAPURL}}/ws/service/terminal",
+									"host": [
+										"{{SOAPURL}}"
+									],
+									"path": [
+										"ws",
+										"service",
+										"terminal"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "GetTerminalsBySecureSimId",
+					"item": [
+						{
+							"name": "Request 1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPACTION",
+										"value": "\"http://api.jasperwireless.com/ws/service/terminal/GetTerminalsBySecureSimId\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sch=\"http://api.jasperwireless.com/ws/schema\">\n   <soapenv:Header> \n      <wsse:Security soapenv:mustUnderstand=\"1\" xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"> \n            <wsse:UsernameToken> \n            <wsse:Username>{{USERNAME}}</wsse:Username> \n            <wsse:Password Type=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText\">{{PASSWORD}}</wsse:Password> \n         </wsse:UsernameToken> \n      </wsse:Security> \n   </soapenv:Header>\n   <soapenv:Body>\n      <sch:GetTerminalsBySecureSimIdRequest>\n         <sch:messageId>{{MESSAGEID}}</sch:messageId>\n         <sch:version>{{VERSION}}</sch:version>\n         <sch:licenseKey>{{LICENSEKEY}}</sch:licenseKey>\n         <sch:secureSimId>{{SECURESIMID}}</sch:secureSimId>\n      </sch:GetTerminalsBySecureSimIdRequest>\n   </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SOAPURL}}/ws/service/terminal",
+									"host": [
+										"{{SOAPURL}}"
+									],
+									"path": [
+										"ws",
+										"service",
+										"terminal"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "QueueTerminalRatePlan",
+					"item": [
+						{
+							"name": "Request 1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPACTION",
+										"value": "\"http://api.jasperwireless.com/ws/service/terminal/QueueTerminalRatePlan\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sch=\"http://api.jasperwireless.com/ws/schema\">\n   <soapenv:Header> \n      <wsse:Security soapenv:mustUnderstand=\"1\" xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"> \n            <wsse:UsernameToken> \n            <wsse:Username>{{USERNAME}}</wsse:Username> \n            <wsse:Password Type=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText\">{{PASSWORD}}</wsse:Password> \n         </wsse:UsernameToken> \n      </wsse:Security> \n   </soapenv:Header>\n   <soapenv:Body>\n      <sch:QueueTerminalRatePlanRequest>\n         <sch:messageId>{{MESSAGEID}}</sch:messageId>\n         <sch:version>{{VERSION}}</sch:version>\n         <sch:licenseKey>{{LICENSEKEY}}</sch:licenseKey>\n         <sch:iccid>{{ICCID}}</sch:iccid>\n         <sch:renewalRatePlan>{{RENEWALRATEPLAN}}</sch:renewalRatePlan>\n      </sch:QueueTerminalRatePlanRequest>\n   </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SOAPURL}}/ws/service/terminal",
+									"host": [
+										"{{SOAPURL}}"
+									],
+									"path": [
+										"ws",
+										"service",
+										"terminal"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "RemoveRatePlanFromQueue",
+					"item": [
+						{
+							"name": "Request 1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPACTION",
+										"value": "\"http://api.jasperwireless.com/ws/service/terminal/RemoveRatePlanFromQueue\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sch=\"http://api.jasperwireless.com/ws/schema\">\n   <soapenv:Header> \n      <wsse:Security soapenv:mustUnderstand=\"1\" xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"> \n            <wsse:UsernameToken> \n            <wsse:Username>{{USERNAME}}</wsse:Username> \n            <wsse:Password Type=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText\">{{PASSWORD}}</wsse:Password> \n         </wsse:UsernameToken> \n      </wsse:Security> \n   </soapenv:Header>\n   <soapenv:Body>\n      <sch:RemoveRatePlanFromQueueRequest>\n         <sch:messageId>{{MESSAGEID}}</sch:messageId>\n         <sch:version>{{VERSION}}</sch:version>\n         <sch:licenseKey>{{LICENSEKEY}}</sch:licenseKey>\n         <sch:iccid>{{ICCID}}</sch:iccid>\n         <sch:queuePosition>{{QUEUEPOSITION}}</sch:queuePosition>\n         <sch:ratePlan>{{RATEPLAN}}</sch:ratePlan>\n      </sch:RemoveRatePlanFromQueueRequest>\n   </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SOAPURL}}/ws/service/terminal",
+									"host": [
+										"{{SOAPURL}}"
+									],
+									"path": [
+										"ws",
+										"service",
+										"terminal"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "SendCancelLocation",
+					"item": [
+						{
+							"name": "Request 1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPACTION",
+										"value": "\"http://api.jasperwireless.com/ws/service/terminal/SendCancelLocation\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sch=\"http://api.jasperwireless.com/ws/schema\">\n   <soapenv:Header> \n      <wsse:Security soapenv:mustUnderstand=\"1\" xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"> \n            <wsse:UsernameToken> \n            <wsse:Username>{{USERNAME}}</wsse:Username> \n            <wsse:Password Type=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText\">{{PASSWORD}}</wsse:Password> \n         </wsse:UsernameToken> \n      </wsse:Security> \n   </soapenv:Header>\n   <soapenv:Body>\n      <sch:SendCancelLocationRequest>\n         <sch:messageId>{{MESSAGEID}}</sch:messageId>\n         <sch:version>{{VERSION}}</sch:version>\n         <sch:licenseKey>{{LICENSEKEY}}</sch:licenseKey>\n         <sch:iccid>{{ICCID}}</sch:iccid>\n      </sch:SendCancelLocationRequest>\n   </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SOAPURL}}/ws/service/terminal",
+									"host": [
+										"{{SOAPURL}}"
+									],
+									"path": [
+										"ws",
+										"service",
+										"terminal"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "SimRmaExchange",
+					"item": [
+						{
+							"name": "Request 1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPACTION",
+										"value": "\"http://api.jasperwireless.com/ws/service/terminal/SimRmaExchange\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sch=\"http://api.jasperwireless.com/ws/schema\">\n   <soapenv:Header> \n      <wsse:Security soapenv:mustUnderstand=\"1\" xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"> \n            <wsse:UsernameToken> \n            <wsse:Username>{{USERNAME}}</wsse:Username> \n            <wsse:Password Type=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText\">{{PASSWORD}}</wsse:Password> \n         </wsse:UsernameToken> \n      </wsse:Security> \n   </soapenv:Header>\n   <soapenv:Body>\n      <sch:SimRmaExchangeRequest>\n         <sch:messageId>{{MESSAGEID}}</sch:messageId>\n         <sch:version>{{VERSION}}</sch:version>\n         <sch:licenseKey>{{LICENSEKEY}}</sch:licenseKey>\n         <sch:iccid>{{ICCID}}</sch:iccid>\n         <sch:exchangeSimIccid>{{EXCHANGESIMICCID}}</sch:exchangeSimIccid>\n         <!--Optional:-->\n         <sch:externalRmaId>{{EXTERNALRMAID}}</sch:externalRmaId>\n      </sch:SimRmaExchangeRequest>\n   </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SOAPURL}}/ws/service/terminal",
+									"host": [
+										"{{SOAPURL}}"
+									],
+									"path": [
+										"ws",
+										"service",
+										"terminal"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "TransferSimsToAccount",
+					"item": [
+						{
+							"name": "Request 1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPACTION",
+										"value": "\"http://api.jasperwireless.com/ws/service/terminal/TransferSimsToAccount\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sch=\"http://api.jasperwireless.com/ws/schema\">\n   <soapenv:Header> \n      <wsse:Security soapenv:mustUnderstand=\"1\" xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"> \n            <wsse:UsernameToken> \n            <wsse:Username>{{USERNAME}}</wsse:Username> \n            <wsse:Password Type=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText\">{{PASSWORD}}</wsse:Password> \n         </wsse:UsernameToken> \n      </wsse:Security> \n   </soapenv:Header>\n   <soapenv:Body>\n      <sch:TransferSimsToAccountRequest>\n         <sch:messageId>{{MESSAGEID}}</sch:messageId>\n         <sch:version>{{VERSION}}</sch:version>\n         <sch:licenseKey>{{LICENSEKEY}}</sch:licenseKey>\n         <sch:iccidList>\n            <!--1 or more repetitions:-->\n            <sch:iccid>{{ICCID}}</sch:iccid>\n         </sch:iccidList>\n         <sch:accountId>{{ACCOUNTID}}</sch:accountId>\n         <!--Optional:-->\n         <sch:ratePlanName>{{RATEPLANNAME}}</sch:ratePlanName>\n         <!--Optional:-->\n         <sch:commPlanName>{{COMMPLANNAME}}</sch:commPlanName>\n         <!--Optional:-->\n         <sch:callbackUrl>{{CALLBACKURL}}</sch:callbackUrl>\n      </sch:TransferSimsToAccountRequest>\n   </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SOAPURL}}/ws/service/terminal",
+									"host": [
+										"{{SOAPURL}}"
+									],
+									"path": [
+										"ws",
+										"service",
+										"terminal"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.variables.set(\"ICCID\", \"89302720396911982721\");",
+									"pm.variables.set(\"ACCOUNTID\",\"100198901\");",
+									"pm.variables.set(\"RATEPLANNAME\",\"Network J Default\");",
+									"pm.variables.set(\"COMMPLANNAME\",\"JWE Cplan\");",
+									"pm.variables.set(\"CALLBACKURL\",\"https://pushapi.falckenberg.de/nj\");"
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "TransferTerminalAccountNoSimStatus",
+					"item": [
+						{
+							"name": "Request 1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPACTION",
+										"value": "\"http://api.jasperwireless.com/ws/service/terminal/TransferTerminalAccountNoSimStatus\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sch=\"http://api.jasperwireless.com/ws/schema\">\n   <soapenv:Header> \n      <wsse:Security soapenv:mustUnderstand=\"1\" xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"> \n            <wsse:UsernameToken> \n            <wsse:Username>{{USERNAME}}</wsse:Username> \n            <wsse:Password Type=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText\">{{PASSWORD}}</wsse:Password> \n         </wsse:UsernameToken> \n      </wsse:Security> \n   </soapenv:Header>\n   <soapenv:Body>\n      <sch:TransferTerminalAccountNoSimStatusRequest>\n         <sch:messageId>{{MESSAGEID}}</sch:messageId>\n         <sch:version>{{VERSION}}</sch:version>\n         <sch:licenseKey>{{LICENSEKEY}}</sch:licenseKey>\n         <sch:iccid>{{ICCID}}</sch:iccid>\n         <sch:msisdn>{{MSISDN}}</sch:msisdn>\n         <sch:accountid>{{ACCOUNTID}}</sch:accountid>\n         <!--Optional:-->\n         <sch:ratePlan>{{RATEPLAN}}</sch:ratePlan>\n         <!--Optional:-->\n         <sch:communicationPlan>{{COMMUNICATIONPLAN}}</sch:communicationPlan>\n         <!--Optional:-->\n         <sch:dateShipped>{{DATESHIPPED}}</sch:dateShipped>\n      </sch:TransferTerminalAccountNoSimStatusRequest>\n   </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SOAPURL}}/ws/service/terminal",
+									"host": [
+										"{{SOAPURL}}"
+									],
+									"path": [
+										"ws",
+										"service",
+										"terminal"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "TransferTrialSimsToAccount",
+					"item": [
+						{
+							"name": "Request 1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPACTION",
+										"value": "\"http://api.jasperwireless.com/ws/service/terminal/TransferTrialSimsToAccount\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sch=\"http://api.jasperwireless.com/ws/schema\">\n   <soapenv:Header> \n      <wsse:Security soapenv:mustUnderstand=\"1\" xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"> \n            <wsse:UsernameToken> \n            <wsse:Username>{{USERNAME}}</wsse:Username> \n            <wsse:Password Type=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText\">{{PASSWORD}}</wsse:Password> \n         </wsse:UsernameToken> \n      </wsse:Security> \n   </soapenv:Header>\n   <soapenv:Body>\n      <sch:TransferTrialSimsToAccountRequest>\n         <sch:messageId>{{MESSAGEID}}</sch:messageId>\n         <sch:version>{{VERSION}}</sch:version>\n         <sch:licenseKey>{{LICENSEKEY}}</sch:licenseKey>\n         <sch:iccidList>\n            <!--1 or more repetitions:-->\n            <sch:iccid>{{ICCID}}</sch:iccid>\n         </sch:iccidList>\n         <sch:accountId>{{ACCOUNTID}}</sch:accountId>\n      </sch:TransferTrialSimsToAccountRequest>\n   </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SOAPURL}}/ws/service/terminal",
+									"host": [
+										"{{SOAPURL}}"
+									],
+									"path": [
+										"ws",
+										"service",
+										"terminal"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "UpdateSecureSimCredentials",
+					"item": [
+						{
+							"name": "Request 1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPACTION",
+										"value": "\"http://api.jasperwireless.com/ws/service/terminal/UpdateSecureSimCredentials\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sch=\"http://api.jasperwireless.com/ws/schema\">\n   <soapenv:Header> \n      <wsse:Security soapenv:mustUnderstand=\"1\" xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"> \n            <wsse:UsernameToken> \n            <wsse:Username>{{USERNAME}}</wsse:Username> \n            <wsse:Password Type=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText\">{{PASSWORD}}</wsse:Password> \n         </wsse:UsernameToken> \n      </wsse:Security> \n   </soapenv:Header>\n   <soapenv:Body>\n      <sch:UpdateSecureSimCredentialsRequest>\n         <sch:messageId>{{MESSAGEID}}</sch:messageId>\n         <sch:version>{{VERSION}}</sch:version>\n         <sch:licenseKey>{{LICENSEKEY}}</sch:licenseKey>\n         <sch:iccids>\n            <!--1 or more repetitions:-->\n            <sch:iccid>{{ICCID}}</sch:iccid>\n         </sch:iccids>\n         <sch:username>{{USERNAME}}</sch:username>\n         <sch:password>{{PASSWORD}}</sch:password>\n      </sch:UpdateSecureSimCredentialsRequest>\n   </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SOAPURL}}/ws/service/terminal",
+									"host": [
+										"{{SOAPURL}}"
+									],
+									"path": [
+										"ws",
+										"service",
+										"terminal"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}

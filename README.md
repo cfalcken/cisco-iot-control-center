@@ -6,9 +6,11 @@
 
 ## Motivation
 
-This collection of scripts demonstrate the usage of the REST, SOAP and PUSH API interfaces of the Cisco IOT Control Center solution and how these APIs can be used to retrieve information from the system besides the GUI and the report files. Additional scripts are provided that help processing the "JPO reports" that are created by Control Center.
+This collection of scripts demonstrate the usage of the REST, SOAP and PUSH API interfaces of the Cisco IOT Control Center solution and how these APIs can be used to retrieve information from the system besides the GUI and the report files. Additional scripts are provided that help processing the reports that are created by Control Center, either as "JPO" or "Dynamic" reports.
 
 Note that for accessing the APIs an API key (REST) and a license key (SOAP) is needed; for the PUSH API it is also necessary to configure a shared secret to validate the signature of incoming requests. These user and site specific settings are loaded by each script from a file called "settings.yaml".
+
+The Postman folder includes collections with some sample functions for REST and SOAP, plus an example environment file. When imported into Postman, these files can allow testing the API before using the Python scripts.
 
 ## Installation
 

@@ -1,0 +1,463 @@
+{
+	"info": {
+		"_postman_id": "c759006c-6de3-4c9d-a3ef-6292c9bda91f",
+		"name": "Control Center (REST)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "784411"
+	},
+	"item": [
+		{
+			"name": "Accounts",
+			"item": [
+				{
+					"name": "Get all accounts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{CC_API_URL}}/accounts",
+							"host": [
+								"{{CC_API_URL}}"
+							],
+							"path": [
+								"accounts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get account details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{CC_API_URL}}/accounts/{{ACCOUNTID}}",
+							"host": [
+								"{{CC_API_URL}}"
+							],
+							"path": [
+								"accounts",
+								"{{ACCOUNTID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get account application settings",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{CC_API_URL}}/accounts/{{ACCOUNTID}}/applicationSettings",
+							"host": [
+								"{{CC_API_URL}}"
+							],
+							"path": [
+								"accounts",
+								"{{ACCOUNTID}}",
+								"applicationSettings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get account billing settings",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{CC_API_URL}}/accounts/{{ACCOUNTID}}/billingSettings",
+							"host": [
+								"{{CC_API_URL}}"
+							],
+							"path": [
+								"accounts",
+								"{{ACCOUNTID}}",
+								"billingSettings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get account rate plans",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{CC_API_URL}}/accounts/{{ACCOUNTID}}/ratePlans",
+							"host": [
+								"{{CC_API_URL}}"
+							],
+							"path": [
+								"accounts",
+								"{{ACCOUNTID}}",
+								"ratePlans"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Customers",
+			"item": [
+				{
+					"name": "Get customer details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{CC_API_URL}}/customers/{{CUSTOMERID}}",
+							"host": [
+								"{{CC_API_URL}}"
+							],
+							"path": [
+								"customers",
+								"{{CUSTOMERID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Devices",
+			"item": [
+				{
+					"name": "Search devices",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{CC_API_URL}}/devices?modifiedSince=2014-01-01T00%3A00%3A00%2B00%3A00",
+							"host": [
+								"{{CC_API_URL}}"
+							],
+							"path": [
+								"devices"
+							],
+							"query": [
+								{
+									"key": "modifiedSince",
+									"value": "2014-01-01T00%3A00%3A00%2B00%3A00"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search devices for account",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{CC_API_URL}}/devices?accountId={{ACCOUNTID}}&modifiedSince=2020-01-01T00%3A00%3A00%2B00%3A00",
+							"host": [
+								"{{CC_API_URL}}"
+							],
+							"path": [
+								"devices"
+							],
+							"query": [
+								{
+									"key": "accountId",
+									"value": "{{ACCOUNTID}}"
+								},
+								{
+									"key": "modifiedSince",
+									"value": "2020-01-01T00%3A00%3A00%2B00%3A00"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get device details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{CC_API_URL}}/devices/{{ICCID}}",
+							"host": [
+								"{{CC_API_URL}}"
+							],
+							"path": [
+								"devices",
+								"{{ICCID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get device location history",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{CC_API_URL}}/devices/{{ICCID}}",
+							"host": [
+								"{{CC_API_URL}}"
+							],
+							"path": [
+								"devices",
+								"{{ICCID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get device usage",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{CC_API_URL}}/devices/{{ICCID}}/ctdUsages",
+							"host": [
+								"{{CC_API_URL}}"
+							],
+							"path": [
+								"devices",
+								"{{ICCID}}",
+								"ctdUsages"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get session info",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{CC_API_URL}}/devices/{{ICCID}}/sessionInfo",
+							"host": [
+								"{{CC_API_URL}}"
+							],
+							"path": [
+								"devices",
+								"{{ICCID}}",
+								"sessionInfo"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Rate plans",
+			"item": [
+				{
+					"name": "Get rate plans",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{CC_API_URL}}/rateplans",
+							"host": [
+								"{{CC_API_URL}}"
+							],
+							"path": [
+								"rateplans"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Usage",
+			"item": [
+				{
+					"name": "Get usage",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{CC_API_URL}}/usages?ratePlanName={{RATEPLAN}}",
+							"host": [
+								"{{CC_API_URL}}"
+							],
+							"path": [
+								"usages"
+							],
+							"query": [
+								{
+									"key": "ratePlanName",
+									"value": "{{RATEPLAN}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Get all users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{CC_API_URL}}/users",
+							"host": [
+								"{{CC_API_URL}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Echo",
+			"item": [
+				{
+					"name": "Hello",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{CC_API_URL}}/echo/hello",
+							"host": [
+								"{{CC_API_URL}}"
+							],
+							"path": [
+								"echo",
+								"hello"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "SMS",
+			"item": [
+				{
+					"name": "Get SMS messages",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{CC_API_URL}}/smsMessages?fromDate=2022-01-01T00%3A00%3A00%2B00%3A00",
+							"host": [
+								"{{CC_API_URL}}"
+							],
+							"path": [
+								"smsMessages"
+							],
+							"query": [
+								{
+									"key": "fromDate",
+									"value": "2022-01-01T00%3A00%3A00%2B00%3A00"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get SMS message details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{CC_API_URL}}/smsMessages/12280160313",
+							"host": [
+								"{{CC_API_URL}}"
+							],
+							"path": [
+								"smsMessages",
+								"12280160313"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Send SMS message",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"messageText\": \"Hello world\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{CC_API_URL}}/devices/{{ICCID}}/smsMessages",
+							"host": [
+								"{{CC_API_URL}}"
+							],
+							"path": [
+								"devices",
+								"{{ICCID}}",
+								"smsMessages"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "username",
+				"value": "{{USERNAME}}",
+				"type": "string"
+			},
+			{
+				"key": "password",
+				"value": "{{API_KEY}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
