@@ -67,6 +67,9 @@ try:
 except Exception as error:
     sys.exit(f"ERROR: Could not process CSV input: {error}")
 
+if header == []:
+    sys.exit(f"ERROR: Empty CSV input")
+
 for i in range(0,len(header)):
     header[i]=clean(header[i])
 
@@ -95,7 +98,11 @@ Prints only columns 1-4 and only when column 12 contains the string "Hello"
 # Parse the list of column arguments and build the complete list
 #
 columnlist=[]
+appendlist=[]
 for column in args.columns:
+
+    if column == "all":
+        column = "1-" + str(len(header))
 
     # check if a range of columns is given
     #
@@ -108,7 +115,16 @@ for column in args.columns:
         if c[0].isdigit():
             columnlist.append(int(c[0]))
         else:
-            columnlist.append(header.index(c[0])+1)
+            try:
+                columnlist.append(header.index(c[0])+1)
+            except:
+                f = c[0].split("=")
+                if f[0] != c[0]:
+                    header.append(f[0])
+                    appendlist.append(f[1])
+                    columnlist.append(len(header))
+                else:
+                    print (f"Column '{c[0]}' does not exist in the data input (add it with '{c[0]}=<value>')",file=sys.stderr)
 
 # Parse the list of filters
 # 
@@ -124,14 +140,14 @@ if args.filters != None:
 
 # Parse the list of column to append
 #
-appendlist=[]
-if args.append != None:
-    for newcolumn in args.append:
-        f = newcolumn.split("=")
-        if f[0] != newcolumn:
-            header.append(f[0])
-            appendlist.append(f[1])
-            columnlist.append(len(header))
+#appendlist=[]
+#if args.append != None:
+#    for newcolumn in args.append:
+#        f = newcolumn.split("=")
+#        if f[0] != newcolumn:
+#            header.append(f[0])
+#            appendlist.append(f[1])
+#            columnlist.append(len(header))
 
 # write the selected columns to standard output
 #

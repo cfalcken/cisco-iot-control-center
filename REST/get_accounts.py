@@ -65,7 +65,7 @@ while not lastpage:
         settings["username"], 
         settings["apikey"], 
         params, 
-        args.debug))
+        debug=args.debug))
     accounts += jData["accounts"]
 
     page+=1

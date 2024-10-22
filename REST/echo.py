@@ -58,6 +58,6 @@ jData = json.loads(functions.get_data(
     settings["username"], 
     settings["apikey"], 
     {}, 
-    args.debug))
+    debug=args.debug))
 
 print (jData["context"])

@@ -94,7 +94,7 @@ csv_writer.writeheader()
 try:
     for item in flat_data:
         # sort the item's keys to match the header
-        sorted_item = {key: str(item.get(key,"-")).replace('\n','') for key in header}
+        sorted_item = {key: str(item.get(key,"-")).replace('\n','').replace(',',' ') for key in header}
         csv_writer.writerow(sorted_item)
 
     data_file.close()

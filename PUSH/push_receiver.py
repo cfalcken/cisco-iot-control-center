@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 ----------------------------------------------------------------------
@@ -85,7 +85,7 @@ class PushAPIHandler(http.server.BaseHTTPRequestHandler):
             # create an HMAC-SHA256 hash of the timestamp using the secret key
             # and convert the resulting hash value to a string in hexadecimal format
             #
-            hash     = hmac.new(bytes(settings[args.site]["secret"]), bytes(timestamp, 'utf-8'), hashlib.sha256)
+            hash     = hmac.new(bytes(settings[args.site]["secret"], 'utf-8'), bytes(timestamp, 'utf-8'), hashlib.sha256)
             hash_str = base64.b64encode(hash.digest()).decode('utf-8')
 
             # Print the content

@@ -44,6 +44,7 @@ import functions
 parser = argparse.ArgumentParser(os.path.basename(__file__))
 parser.add_argument("site", help="Name of the site as specified in settings.yaml", type=str)
 parser.add_argument('-f', '--fields', type=str, default=',', help='Fields to print from JSON')
+parser.add_argument("-a", "--account", help="ID of the account", type=str)
 parser.add_argument("-d", "--debug", help="Enable debug output", action='store_true' )
 args = parser.parse_args()
 
@@ -67,13 +68,15 @@ while not lastpage:
 
     params={"pageNumber": page}
 
+    if args.account != None:
+        params["accountId"] = args.account
+
     jData = json.loads(functions.get_data(
         settings["resturl"] + "/rateplans" + fields,
         settings["username"], 
         settings["apikey"], 
         params, 
-        args.debug))
-    print (jData)
+        debug=args.debug))
     rateplans += jData["ratePlans"]
     page+=1
     lastpage = jData["lastPage"]

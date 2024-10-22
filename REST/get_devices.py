@@ -72,7 +72,7 @@ while not lastpage:
         settings["username"], 
         settings["apikey"], 
         params, 
-        args.debug))
+        debug=args.debug))
     devices += jData["devices"]
 
     page+=1

@@ -83,7 +83,7 @@ for account in accounts:
         settings["username"], 
         settings["apikey"], 
         {}, 
-        args.debug))
+        debug=args.debug))
 
     alldetails.append(jData)
 

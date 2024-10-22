@@ -82,7 +82,7 @@ for iccid in iccids:
         settings["username"], 
         settings["apikey"], 
         {}, 
-        args.debug))
+        debug=args.debug))
 
     alldevices.append(jData)
 

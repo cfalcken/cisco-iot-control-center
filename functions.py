@@ -44,12 +44,14 @@ import time
 import logging
 import http.client as http_client
 import json
+import re
+from requests.exceptions import RequestException
 
 try:
     import zeep
 except ImportError:
-    print ('WARNING: Could not import zeep module')
-
+    pass
+    
 def load_site_settings(site):
 
     try:
@@ -64,12 +66,12 @@ def load_site_settings(site):
     if site not in settings:
         sys.exit(f"ERROR: Site {site} is not defined in settings file {settingsfile}")
     
-    if "password" not in settings[site]:
-        settings[site]["password"]=getpass.getpass("Please enter password for user " + settings[site]["username"] + " on site " + site + ": ")
+#    if "password" not in settings[site]:
+#        settings[site]["password"]=getpass.getpass("Please enter password for user " + settings[site]["username"] + " on site " + site + ": ")
 
     return settings[site]
 
-def get_data (url, username, password, params={}, debug=False):
+def get_data (url, username, password, params={}, method="get", jsondata={}, debug=False ):
     
     if debug:
         http_client.HTTPConnection.debuglevel = 1
@@ -86,11 +88,37 @@ def get_data (url, username, password, params={}, debug=False):
 
     for _ in range(5):
         try:
-            myResponse = requests.get(
-                url,
-                auth=(username,password),
-                params=params
-            )
+
+            if method == "get":
+                if username !='':
+                    myResponse = requests.get(
+                        url,
+                        auth=(username,password),
+                        params=params
+                )
+                else:
+                    myResponse = requests.get(
+                        url,
+                        params=params
+                    )
+            elif method == "post":
+                if username !='':
+                    myResponse = requests.post(
+                        url,
+                        auth=(username,password),
+                        json=jsondata,
+                        params=params
+                )
+                else:
+                    myResponse = requests.post(
+                        url,
+                        json=jsondata,
+                        params=params
+                    )
+            else:
+                sys.exit(f"Unknown method '{method}'")
+     
+
             if myResponse.ok:
                 return myResponse.content
             elif myResponse.status_code in [429,503,504]:
@@ -143,4 +171,99 @@ def convert_zeep_object(obj):
         else:
             items[key] = str(obj[key])
     return items
+
+
+def get_filename_from_header(response):
+    # Attempt to extract filename from the Content-Disposition header
+    content_disposition = response.headers.get('Content-Disposition')
+    
+    if content_disposition:
+        filename_match = re.findall('filename=(.+)', content_disposition)
+        if filename_match:
+            return filename_match[0]
+    # If Content-Disposition header is not present, use URL to derive filename
+    return os.path.basename(response.url)
+
+def print_download_stats(total_size, downloaded_size, start_time):
+    elapsed_time = time.time() - start_time
+    if elapsed_time > 0:
+        speed = downloaded_size / elapsed_time  # in bytes per second
+        if total_size > 0:
+            percent_complete = (downloaded_size / total_size) * 100
+            remaining_time = (total_size - downloaded_size) / speed if speed > 0 else 0
+
+            print(f"\rDownloaded: {downloaded_size} / {total_size} bytes ({percent_complete:.2f}%) "
+                  f"at {speed / 1024:.2f} KB/s, estimated time remaining: {remaining_time:.2f} seconds", end='', file=sys.stderr)
+        else:
+            print(f"\rDownloaded: {downloaded_size} bytes at {speed / 1024:.2f} KB/s", end='', file=sys.stderr)
+
+def download_file(url, path, username, password, debug=False):
+
+    try:
+
+        if debug:
+            http_client.HTTPConnection.debuglevel = 1
+            logging.basicConfig()
+            logging.getLogger().setLevel(logging.DEBUG)
+            requests_log = logging.getLogger("requests.packages.urllib3")
+            requests_log.setLevel(logging.DEBUG)
+            requests_log.propagate = True
+
+        # Initial request to get the filename
+        #
+        response = requests.get(url, auth=(username,password), stream=True)
+        response.raise_for_status()
+        filename = path + get_filename_from_header(response)
+
+        print(f"Downloading to file name: {filename}", file=sys.stderr)
+
+        if os.path.exists(filename):
+            # Get the file size
+            file_size = os.path.getsize(filename)
+        else:
+            file_size = 0
+
+        content_size = int(response.headers.get('Content-Length', 0))
+        if content_size > 0:
+            total_size = content_size + file_size
+        else:
+            total_size = 0
+
+        headers = {'Range': f'bytes={file_size}-'}
+        with requests.get(url, auth=(username,password), headers=headers, stream=True) as response:
+
+            # Raise an error if the request was unsuccessful
+            response.raise_for_status()
+
+            # Open the local file in append-binary mode
+            with open(filename, 'ab') as file:
+
+                downloaded_size = 0
+                start_time = time.time()
+
+                # Iterate over the response in chunks
+                chunks=0
+                for chunk in response.iter_content(chunk_size=8192):
+                    # Filter out keep-alive new chunks
+                    if chunk:
+                        file.write(chunk)
+                        file.flush()
+                        downloaded_size += len(chunk)
+                        chunks +=1
+                    if chunks > 128:
+                        print_download_stats(total_size, downloaded_size, start_time)
+                        chunks = 0
+
+    except RequestException as e:
+        print(f"Download interrupted: {e}", file=sys.stderr)
+        print("Attempting to resume the download in 30 seconds...", file=sys.stderr)
+
+        time.sleep( 30 )
+
+        # Recursive call to resume the download
+        download_file(url, path, username, password, debug)
+
+    print(f"Done.", file=sys.stderr)
+
+
 

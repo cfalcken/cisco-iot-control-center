@@ -1,5 +1,6 @@
 jpotest:
     username: <your user name>
+    password: <your GUI password>
     apikey: <your API key>
     resturl: https://rws-jpotest.jasper.com/rws/api/v1
     soapurl: https://api-cj.jasper.com
