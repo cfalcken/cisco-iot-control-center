@@ -44,6 +44,13 @@ def flatten_json(nested_json, parent_key=''):
         new_key = parent_key + '_' + key if parent_key else key
         if isinstance(value, dict):
             items.extend(flatten_json(value, new_key).items())
+        elif isinstance(value, list):
+            for i,v in enumerate(value):
+                list_key = new_key + str(i+1)
+                if isinstance(value, dict):
+                    items.extend(flatten_json(v, list_key).items())
+                else:
+                    items.append((new_key, value))
         else:
             items.append((new_key, value))
     return dict(items)

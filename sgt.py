@@ -60,7 +60,8 @@ if args.columns != None:
     #
     for row in reader:
         for c in args.columns:
-            colstats[c][row[int(c)-1]] = colstats[c].get(row[int(c)-1],0) + 1
+            if len(row) >= int(c):
+                colstats[c][row[int(c)-1]] = colstats[c].get(row[int(c)-1],0) + 1
    
     # Print the calculated statistics for each column
     #   

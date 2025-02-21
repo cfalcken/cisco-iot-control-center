@@ -33,6 +33,7 @@ import json
 import os
 import argparse
 import sys
+import csv
 
 # Import functions from parent directory
 #
@@ -45,7 +46,7 @@ import functions
 parser = argparse.ArgumentParser(os.path.basename(__file__))
 parser.add_argument("site", help="Name of the site as specified in settings.yaml", type=str)
 parser.add_argument("-i", "--iccid", help="Device ICCID", type=str, action="append")
-parser.add_argument("-l", "--list", help="File with ICCIDs", type=str)
+parser.add_argument("-l", "--list", help="File with ICCIDs and params to change", type=str)
 parser.add_argument("-p", "--param", type=str, default="", help="Parameters to modify in JSON format")
 parser.add_argument("-d", "--debug", help="Enable debug output", action='store_true' )
 args = parser.parse_args()
@@ -57,8 +58,14 @@ if args.iccid == None:
         print("Provide either one or more ICCIDs with option -i or use -l for a filename with ICCIDs")
         exit()
     else:
-        with open(args.list) as iccidfile:
-            iccids = iccidfile.read().splitlines()
+        params ={}
+        iccids = []
+        with open(args.list, mode='r') as file:
+            csv_reader = csv.DictReader(file)
+            for row in csv_reader:
+                iccid = row.pop('ICCID')
+                iccids.append(iccid)
+                params[iccid] = row
 else:
     iccids = args.iccid
 
@@ -66,28 +73,30 @@ else:
 #
 settings = functions.load_site_settings(args.site)
 
-
 alldevices=[]
 print(f"Processing {len(iccids)} ICCIDs", file=sys.stderr)
 for iccid in iccids:
 
     print("Editing parameters for ICCID", iccid, file=sys.stderr)
 
+    if args.param:
+        param = json.loads(args.param)
+    else:
+        param = params[iccid]
+
+    print("  ", param, file=sys.stderr)
+
     # Send the API request
     #
-    myResponse = requests.put(
+    jData = json.loads(functions.get_data(
         settings["resturl"] + "/devices/" + iccid,
-        auth=(settings["username"],settings["apikey"]),
-        json=json.loads(args.param)
-        )
+        settings["username"],
+        settings["apikey"],
+        method="put",
+        jsondata=param,
+        debug=args.debug)
+    )
 
-    if(myResponse.ok):
-        print ("Update successful")
-    else:
-        print("Failure")
-        myResponse.raise_for_status()
-
-    jData = json.loads(myResponse.content)
     json.dump(jData,sys.stdout, indent=4)
 
     print()

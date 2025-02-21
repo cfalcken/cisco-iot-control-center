@@ -66,8 +66,8 @@ def load_site_settings(site):
     if site not in settings:
         sys.exit(f"ERROR: Site {site} is not defined in settings file {settingsfile}")
     
-#    if "password" not in settings[site]:
-#        settings[site]["password"]=getpass.getpass("Please enter password for user " + settings[site]["username"] + " on site " + site + ": ")
+    if "password" not in settings[site]:
+        settings[site]["password"]=getpass.getpass("Please enter password for user " + settings[site]["username"] + " on site " + site + ": ")
 
     return settings[site]
 
@@ -115,17 +115,35 @@ def get_data (url, username, password, params={}, method="get", jsondata={}, deb
                         json=jsondata,
                         params=params
                     )
+            elif method == "put":
+                if username !='':
+                    myResponse = requests.put(
+                        url,
+                        auth=(username,password),
+                        json=jsondata,
+                        params=params
+                )
+                else:
+                    myResponse = requests.put(
+                        url,
+                        json=jsondata,
+                        params=params
+                    )
             else:
                 sys.exit(f"Unknown method '{method}'")
      
 
             if myResponse.ok:
+                print (f"Request successful", file=sys.stderr)
                 return myResponse.content
             elif myResponse.status_code in [429,503,504]:
                 delay+=delayinc
                 print (f"Received HTTP error {myResponse.status_code}; retrying in {delay} seconds", file=sys.stderr)
                 time.sleep(delay)
                 continue
+            elif myResponse.status_code == 400:
+                print("Received HTTP error 400: Bad request", file=sys.stderr)
+                return myResponse.content
             elif myResponse.status_code == 401:
                 sys.exit (f"Received HTTP error 401: Check username and password")
             elif myResponse.status_code == 404:
@@ -217,11 +235,12 @@ def download_file(url, path, username, password, debug=False):
 
         print(f"Downloading to file name: {filename}", file=sys.stderr)
 
-        if os.path.exists(filename):
-            # Get the file size
-            file_size = os.path.getsize(filename)
-        else:
-            file_size = 0
+        #if os.path.exists(filename):
+        #    # Get the file size
+        #    file_size = os.path.getsize(filename)
+        #else:
+        #    file_size = 0
+        file_size = 0
 
         content_size = int(response.headers.get('Content-Length', 0))
         if content_size > 0:
@@ -235,8 +254,8 @@ def download_file(url, path, username, password, debug=False):
             # Raise an error if the request was unsuccessful
             response.raise_for_status()
 
-            # Open the local file in append-binary mode
-            with open(filename, 'ab') as file:
+            # Open the local file in write-binary mode
+            with open(filename, 'wb') as file:
 
                 downloaded_size = 0
                 start_time = time.time()
