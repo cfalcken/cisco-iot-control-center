@@ -66,7 +66,7 @@ def load_site_settings(site):
     if site not in settings:
         sys.exit(f"ERROR: Site {site} is not defined in settings file {settingsfile}")
     
-    if "password" not in settings[site]:
+    if "password" not in settings[site] and "username" in settings[site]:
         settings[site]["password"]=getpass.getpass("Please enter password for user " + settings[site]["username"] + " on site " + site + ": ")
 
     return settings[site]

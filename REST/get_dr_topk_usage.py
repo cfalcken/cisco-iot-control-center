@@ -51,7 +51,8 @@ parser.add_argument("-s", "--startdate", type=str, help='Start date (YYYYMMDD)')
 parser.add_argument("-e", "--enddate", type=str, help='End date (YYYYMMDD)')
 parser.add_argument("-b", "--billingcycle", type=str, help='Billing cycle (YYYYMM)')
 parser.add_argument("-g", "--groupby", type=str, help='One or more of carrier, country, rate plan, rating zone, separated by comma')
-parser.add_argument("-m", "--metric", type=str, help='Usage metric (one or more of data, voice, sms, vmo, vmt, smo,smt, separated by comma; default data', default="data")
+parser.add_argument("-m", "--metrics", type=str, help='Usage metric (one of data, voice, sms, vmo, vmt, smo,smt')
+parser.add_argument("-k", "--topk", type=str, help='Number of devices to show in Top K report')
 parser.add_argument("-d", "--debug", help="Enable debug output", action='store_true' )
 args = parser.parse_args()
 
@@ -63,16 +64,21 @@ records=[]
 page = 1
 lastpage = False
 
+if args.metrics:
+    metrics = args.metrics
+else:
+    metrics = "data"
+
 if args.billingcycle:
     params={
         "page_number": page,
-        "metrics": args.metric,
+        "metrics": metrics,
         "billing_cycle": args.billingcycle
     }
 elif args.startdate and args.enddate:
     params={
         "page_number": page,
-        "metrics": args.metric,
+        "metrics": metrics,
         "start_date": args.startdate,
         "end_date": args.enddate
     }
@@ -81,6 +87,9 @@ else:
 
 if args.groupby:
     params["group_by"] = args.groupby
+
+if args.topk:
+    params["k"] = args.topk
 
 url = settings["resturl"] + "/dynareport/operators/" + str(settings["operator"])
 

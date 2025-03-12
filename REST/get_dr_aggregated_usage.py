@@ -124,7 +124,6 @@ while not lastpage:
 
             records.append(record)
 
-
     except Exception as e:
         print (e)
         sys.exit(json.dumps(jData, indent=4))
