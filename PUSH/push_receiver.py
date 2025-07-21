@@ -62,6 +62,23 @@ with open(full_file_path) as settings:
 class PushAPIHandler(http.server.BaseHTTPRequestHandler):
     def do_POST(self):
 
+        def validate_signature(timestamp, signature):
+            # create an HMAC-SHA256 hash of the timestamp using the secret key
+            # and convert the resulting hash value to a string in hexadecimal format
+            #
+            hash     = hmac.new(bytes(settings[args.site]["secret"], 'utf-8'), bytes(timestamp, 'utf-8'), hashlib.sha256)
+            hash_str = base64.b64encode(hash.digest()).decode('utf-8')
+
+            print("Signature        : " + signature)
+            print("Timestamp        : " + timestamp)
+            print("Hashed timestamp : " + hash_str)
+            if hash_str == signature:
+                print("Signature verification successful")
+                return True
+            else:
+                print("Signature verification failed")
+                return False
+                
         def handle_session_stop(iccid):
             print(f"Session ended for ICCID {iccid}")
 
@@ -71,40 +88,29 @@ class PushAPIHandler(http.server.BaseHTTPRequestHandler):
 
         content_type = self.headers.get('Content-Type')
 
-        print("Received push notification in XML format:")
+        print("Received push notification:")
  
         # Process the response
         #
         content_length  = int(self.headers.get('Content-Length'))
         post_data       = self.rfile.read(content_length)
-        form_data       = urllib.parse.parse_qs(post_data.decode('utf-8'))
-        signature       = form_data["signature2"][0]
-        data            = form_data["data"][0]
-        timestamp       = form_data["timestamp"][0]
 
-        # create an HMAC-SHA256 hash of the timestamp using the secret key
-        # and convert the resulting hash value to a string in hexadecimal format
-        #
-        hash     = hmac.new(bytes(settings[args.site]["secret"], 'utf-8'), bytes(timestamp, 'utf-8'), hashlib.sha256)
-        hash_str = base64.b64encode(hash.digest()).decode('utf-8')
-
-        # Print the content
-        #
-        print("Signature        : " + signature)
-        print("Timestamp        : " + timestamp)
-        print("Hashed timestamp : " + hash_str)
-        if hash_str == signature:
-            print("Signature verification successful")
-        else:
-            print("Signature verification failed")
-                
         if content_type.startswith('application/x-www-form-urlencoded'):
-            print("Event            : " + event)
-            event    = form_data["eventType"][0]
-            xml_data = ET.fromstring(data)
-            xmlstr = minidom.parseString(ET.tostring(xml_data, encoding='utf8').decode('utf8')).toprettyxml(indent="   ")
-            print("XML data         :")
-            print(xmlstr)
+            form_data       = urllib.parse.parse_qs(post_data.decode('utf-8'))
+            signature       = form_data["signature2"][0]
+            timestamp       = form_data["timestamp"][0]
+
+            if validate_signature(timestamp, signature):
+
+                # Print the content
+                #
+                event           = form_data["eventType"][0]
+                data            = form_data["data"][0]
+                print("Event            : " + event)
+                xml_data = ET.fromstring(data)
+                xmlstr = minidom.parseString(ET.tostring(xml_data, encoding='utf8').decode('utf8')).toprettyxml(indent="   ")
+                print("XML data         :")
+                print(xmlstr)
             
             # Send a response back to the sender
             #
@@ -120,7 +126,8 @@ class PushAPIHandler(http.server.BaseHTTPRequestHandler):
                 handle_session_stop(iccid)
  
         elif content_type.startswith('application/json'):
-            json.dump(data)
+            
+            json.dump(post_data)
 
             # Send a response back to the sender
             #
