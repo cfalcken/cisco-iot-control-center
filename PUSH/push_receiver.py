@@ -35,6 +35,7 @@ import os
 from pathlib import Path
 import argparse
 import yaml
+import json
 
 __author__ = "Christian Falckenberg"
 __email__ = "cfalcken@cisco.com"
@@ -69,35 +70,36 @@ class PushAPIHandler(http.server.BaseHTTPRequestHandler):
             #subprocess.Popen(f"/home/ubuntu/CC/SOAP/get_usage_details.py {args.site} {iccid} 2023-01-01", shell=True)
 
         content_type = self.headers.get('Content-Type')
-        if content_type.startswith('application/x-www-form-urlencoded'):
-            print("Received push notification:")
+
+        print("Received push notification in XML format:")
  
-            # Process the response
-            #
-            content_length  = int(self.headers.get('Content-Length'))
-            post_data       = self.rfile.read(content_length)
-            form_data       = urllib.parse.parse_qs(post_data.decode('utf-8'))
-            event           = form_data["eventType"][0]
-            signature       = form_data["signature2"][0]
-            data            = form_data["data"][0]
-            timestamp       = form_data["timestamp"][0]
+        # Process the response
+        #
+        content_length  = int(self.headers.get('Content-Length'))
+        post_data       = self.rfile.read(content_length)
+        form_data       = urllib.parse.parse_qs(post_data.decode('utf-8'))
+        event           = form_data["eventType"][0]
+        signature       = form_data["signature2"][0]
+        data            = form_data["data"][0]
+        timestamp       = form_data["timestamp"][0]
 
-            # create an HMAC-SHA256 hash of the timestamp using the secret key
-            # and convert the resulting hash value to a string in hexadecimal format
-            #
-            hash     = hmac.new(bytes(settings[args.site]["secret"], 'utf-8'), bytes(timestamp, 'utf-8'), hashlib.sha256)
-            hash_str = base64.b64encode(hash.digest()).decode('utf-8')
+        # create an HMAC-SHA256 hash of the timestamp using the secret key
+        # and convert the resulting hash value to a string in hexadecimal format
+        #
+        hash     = hmac.new(bytes(settings[args.site]["secret"], 'utf-8'), bytes(timestamp, 'utf-8'), hashlib.sha256)
+        hash_str = base64.b64encode(hash.digest()).decode('utf-8')
 
-            # Print the content
-            #
-            print("Event            : " + event)
-            print("Signature        : " + signature)
-            print("Hashed timestamp : " + hash_str)
-            if hash_str == signature:
-                print("Signature verification successful")
-            else:
-                print("Signature verification failed")
+        # Print the content
+        #
+        print("Event            : " + event)
+        print("Signature        : " + signature)
+        print("Hashed timestamp : " + hash_str)
+        if hash_str == signature:
+            print("Signature verification successful")
+        else:
+            print("Signature verification failed")
                 
+        if content_type.startswith('application/x-www-form-urlencoded'):
             xml_data = ET.fromstring(data)
             xmlstr = minidom.parseString(ET.tostring(xml_data, encoding='utf8').decode('utf8')).toprettyxml(indent="   ")
             print("XML data         :")
@@ -115,6 +117,16 @@ class PushAPIHandler(http.server.BaseHTTPRequestHandler):
             if event == "SESSION_STOP":
                 iccid = xml_data.find("{http://api.jasperwireless.com/ws/schema}iccid").text
                 handle_session_stop(iccid)
+ 
+        elif content_type.startswith('application/json'):
+            json.dump(data)
+
+            # Send a response back to the sender
+            #
+            self.send_response(200)
+            self.send_header('Content-type', 'text/plain')
+            self.end_headers()
+            self.wfile.write(b'Received push notification')
 
         else:
             # Notify the sender about the unexpected content type
