@@ -78,7 +78,6 @@ class PushAPIHandler(http.server.BaseHTTPRequestHandler):
         content_length  = int(self.headers.get('Content-Length'))
         post_data       = self.rfile.read(content_length)
         form_data       = urllib.parse.parse_qs(post_data.decode('utf-8'))
-        event           = form_data["eventType"][0]
         signature       = form_data["signature2"][0]
         data            = form_data["data"][0]
         timestamp       = form_data["timestamp"][0]
@@ -91,8 +90,8 @@ class PushAPIHandler(http.server.BaseHTTPRequestHandler):
 
         # Print the content
         #
-        print("Event            : " + event)
         print("Signature        : " + signature)
+        print("Timestamp        : " + timestamp)
         print("Hashed timestamp : " + hash_str)
         if hash_str == signature:
             print("Signature verification successful")
@@ -100,6 +99,8 @@ class PushAPIHandler(http.server.BaseHTTPRequestHandler):
             print("Signature verification failed")
                 
         if content_type.startswith('application/x-www-form-urlencoded'):
+            print("Event            : " + event)
+            event    = form_data["eventType"][0]
             xml_data = ET.fromstring(data)
             xmlstr = minidom.parseString(ET.tostring(xml_data, encoding='utf8').decode('utf8')).toprettyxml(indent="   ")
             print("XML data         :")
