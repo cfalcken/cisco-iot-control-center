@@ -126,11 +126,8 @@ class PushAPIHandler(http.server.BaseHTTPRequestHandler):
                 handle_session_stop(iccid)
  
         elif content_type.startswith('application/json'):
-            try:
-                decoded_data = json.loads(post_data.decode('utf-8'))
-                self.wfile.write(json.dumps({"message": "JSON data received", "data": decoded_data}).encode('utf-8'))
-            except json.JSONDecodeError:
-                self.send_error(400, "Invalid JSON")
+            decoded_data = json.loads(post_data.decode('utf-8'))
+            self.wfile.write(json.dumps({"message": "JSON data received", "data": decoded_data}).encode('utf-8'))
 
             # Send a response back to the sender
             #
