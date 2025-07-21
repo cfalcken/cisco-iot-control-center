@@ -100,17 +100,17 @@ class PushAPIHandler(http.server.BaseHTTPRequestHandler):
             signature       = form_data["signature2"][0]
             timestamp       = form_data["timestamp"][0]
 
-            if validate_signature(timestamp, signature):
+            validate_signature(timestamp, signature)
 
-                # Print the content
-                #
-                event           = form_data["eventType"][0]
-                data            = form_data["data"][0]
-                print("Event            : " + event)
-                xml_data = ET.fromstring(data)
-                xmlstr = minidom.parseString(ET.tostring(xml_data, encoding='utf8').decode('utf8')).toprettyxml(indent="   ")
-                print("XML data         :")
-                print(xmlstr)
+            # Print the content
+            #
+            event           = form_data["eventType"][0]
+            data            = form_data["data"][0]
+            print("Event            : " + event)
+            xml_data = ET.fromstring(data)
+            xmlstr = minidom.parseString(ET.tostring(xml_data, encoding='utf8').decode('utf8')).toprettyxml(indent="   ")
+            print("XML data         :")
+            print(xmlstr)
             
             # Send a response back to the sender
             #
@@ -126,8 +126,25 @@ class PushAPIHandler(http.server.BaseHTTPRequestHandler):
                 handle_session_stop(iccid)
  
         elif content_type.startswith('application/json'):
-            decoded_data = json.loads(post_data.decode('utf-8'))
-            self.wfile.write(json.dumps({"message": "JSON data received", "data": decoded_data}).encode('utf-8'))
+            try:
+                json_data = json.loads(post_data.decode('utf-8'))
+
+                signature       = json_data["signature2"]
+                timestamp       = json_data["timestamp"]
+
+                validate_signature(timestamp, signature)
+
+                # Print the content
+                #
+                event           = json_data["eventType"]
+                data            = json_data["data"]
+                print("Event            : " + event)
+                print("JSON data        :")
+                print(json.dumps(data, indent=4))
+
+            except json.JSONDecodeError:
+                print ("Invalid JSON")
+                self.send_error(400, "Invalid JSON")
 
             # Send a response back to the sender
             #
